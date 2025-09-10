@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nos Valeurs - JS Multimédias</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #6c63ff;
+      --secondary: #ff3cac;
+      --accent: #36d1dc;
+      --bg-dark: #0d0d1a;
+      --bg-darker: #050510;
+      --light: #f9f9f9;
+      --glass: rgba(255,255,255,0.08);
+      --glass-light: rgba(255,255,255,0.12);
+      --transition: all .3s ease-in-out;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg-darker);
+      color: var(--light);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    h1,h2,h3 {
+      font-family: 'Orbitron', sans-serif;
+      line-height: 1.2;
+    }
+    
+    /* Header */
+    header {
+      position: sticky; top: 0; z-index: 1000;
+      backdrop-filter: blur(10px);
+      background: var(--glass);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      transition: var(--transition);
+    }
+    .nav {
+      max-width: 1200px; margin: auto; padding: 15px 20px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .logo { 
+      font-size: 1.8rem; font-weight: 700; 
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+    .logo:hover {
+      transform: scale(1.05);
+    }
+    nav ul { display: flex; gap: 30px; list-style: none; }
+    nav a {
+      color: white; text-decoration: none; position: relative;
+      font-weight: 500;
+      padding: 5px 0;
+    }
+    nav a::after {
+      content: ""; position: absolute; left: 0; bottom: -4px;
+      width: 0; height: 2px; background: var(--secondary);
+      transition: var(--transition);
+    }
+    nav a:hover::after { width: 100%; }
+
+    /* Hero Section */
+    .valeurs-hero {
+      height: 60vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at top, #1e1e3f, #0d0d1a);
+      text-align: center;
+      padding: 0 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .valeurs-hero::before {
+      content: ""; position: absolute; width: 200%; height: 200%;
+      background: conic-gradient(from 180deg, var(--primary), var(--secondary), var(--accent), var(--primary));
+      animation: spin 20s linear infinite;
+      top: -50%; left: -50%; opacity: .1;
+    }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+    .valeurs-hero-content { 
+      position: relative; z-index: 2; 
+      max-width: 800px;
+    }
+    .valeurs-hero h1 { 
+      font-size: clamp(2.5rem, 5vw, 4rem); 
+      margin-bottom: 20px; 
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .valeurs-hero p {
+      font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+      opacity: 0.9;
+      color: var(--accent);
+    }
+
+    /* Values Section */
+    .valeurs-section {
+      padding: 100px 20px;
+      background: linear-gradient(to bottom, #111122, var(--bg-darker));
+      position: relative;
+    }
+    .valeurs-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--primary), transparent);
+    }
+    .valeurs-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .valeurs-intro {
+      text-align: center;
+      margin-bottom: 80px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .valeurs-intro h2 {
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      background: linear-gradient(135deg, var(--secondary), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .valeurs-intro p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      line-height: 1.8;
+    }
+
+    /* Fencing Quote */
+    .fencing-quote {
+      background: var(--glass);
+      border-radius: 20px;
+      padding: 40px;
+      margin: 60px auto;
+      max-width: 800px;
+      text-align: center;
+      border: 1px solid var(--glass-light);
+      position: relative;
+    }
+    .fencing-quote::before {
+      content: '"';
+      font-size: 4rem;
+      color: var(--primary);
+      opacity: 0.3;
+      position: absolute;
+      top: 10px;
+      left: 20px;
+    }
+    .fencing-quote p {
+      font-size: 1.3rem;
+      font-style: italic;
+      margin-bottom: 20px;
+      color: var(--accent);
+    }
+    .fencing-quote .author {
+      font-weight: 600;
+      color: var(--secondary);
+    }
+
+    /* Values Grid */
+    .valeurs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+      margin-top: 80px;
+    }
+    .valeur-card {
+      background: var(--glass);
+      border-radius: 20px;
+      padding: 40px;
+      text-align: center;
+      transition: var(--transition);
+      border: 1px solid var(--glass-light);
+      position: relative;
+      overflow: hidden;
+    }
+    .valeur-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      transform: scaleX(0);
+      transition: var(--transition);
+    }
+    .valeur-card:hover::before {
+      transform: scaleX(1);
+    }
+    .valeur-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+    .valeur-card .icon {
+      font-size: 3rem;
+      margin-bottom: 25px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .valeur-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      color: var(--light);
+    }
+    .valeur-card p {
+      opacity: 0.9;
+      line-height: 1.7;
+    }
+
+    /* Fencing Spirit Section */
+    .fencing-spirit {
+      padding: 100px 20px;
+      background: var(--bg-darker);
+      text-align: center;
+    }
+    .fencing-spirit-content {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .fencing-spirit h2 {
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+      background: linear-gradient(135deg, var(--accent), var(--primary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .fencing-qualities {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-top: 60px;
+    }
+    .quality-card {
+      background: var(--glass);
+      border-radius: 15px;
+      padding: 30px;
+      border: 1px solid var(--glass-light);
+      transition: var(--transition);
+    }
+    .quality-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent);
+    }
+    .quality-card i {
+      font-size: 2rem;
+      color: var(--accent);
+      margin-bottom: 15px;
+    }
+    .quality-card h4 {
+      color: var(--light);
+      margin-bottom: 10px;
+    }
+
+    /* CTA Section */
+    .valeurs-cta {
+      padding: 80px 20px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .valeurs-cta::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: 0.5s;
+    }
+    .valeurs-cta:hover::before {
+      left: 100%;
+    }
+    .valeurs-cta h3 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: white;
+    }
+    .valeurs-cta p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      opacity: 0.9;
+      color: white;
+    }
+    .valeurs-cta .cta-button {
+      background: white;
+      color: var(--primary);
+      padding: 15px 40px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-block;
+      transition: var(--transition);
+      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    }
+    .valeurs-cta .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--bg-dark);
+      padding: 40px 20px;
+      text-align: center;
+      border-top: 1px solid var(--glass-light);
+    }
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 20px;
+    }
+    .footer-links a {
+      color: var(--light);
+      text-decoration: none;
+      opacity: 0.7;
+      transition: var(--transition);
+    }
+    .footer-links a:hover {
+      opacity: 1;
+      color: var(--accent);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav {
+        flex-direction: column;
+        gap: 20px;
+      }
+      nav ul {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+      }
+      .valeurs-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+      .fencing-qualities {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="nav">
+      <a href="index.html" class="logo">JS Multimédias</a>
+      <nav>
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="index.html#services">Services</a></li>
+          <li><a href="index.html#realisations">Réalisations</a></li>
+          <li><a href="valeurs.html">Nos Valeurs</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="valeurs-hero">
+    <div class="valeurs-hero-content">
+      <h1>Nos Valeurs</h1>
+      <p>Là où la technologie rencontre l'humanité</p>
+    </div>
+  </section>
+
+  <!-- Values Introduction -->
+  <section class="valeurs-section">
+    <div class="valeurs-container">
+      <div class="valeurs-intro">
+        <h2>Notre philosophie</h2>
+        <p>Chaque ligne de code que nous écrivons, chaque problème que nous résolvons, chaque relation que nous construisons est guidée par des valeurs profondément enracinées. Nous croyons que la technologie n'est qu'un outil - c'est la manière dont nous l'utilisons qui fait la différence.</p>
+      </div>
+
+      <!-- Fencing Quote -->
+      <div class="fencing-quote">
+        <p>Comme dans un duel d'escrime, chaque échange repose sur l'écoute et la considération. La précision, la concentration et la réactivité ne sont pas que des qualités sportives - ce sont les fondements de notre approche professionnelle.</p>
+        <div class="author">— Notre philosophie</div>
+      </div>
+
+      <!-- Values Grid -->
+      <div class="valeurs-grid">
+        <div class="valeur-card">
+          <div class="icon">
+            <i class="fas fa-handshake"></i>
+          </div>
+          <h3>Respect mutuel</h3>
+          <p>Comme dans un duel d'escrime, chaque échange repose sur l'écoute et la considération. Nous mettons un point d'honneur à traiter chaque client avec bienveillance et professionnalisme, créant un espace où chaque voix compte.</p>
+        </div>
+
+        <div class="valeur-card">
+          <div class="icon">
+            <i class="fas fa-heart"></i>
+          </div>
+          <h3>Proximité et aide</h3>
+          <p>Être présent aux côtés de ceux qui rencontrent une difficulté informatique, c'est plus qu'un métier : c'est un engagement humain. Nous privilégions un contact simple, accessible et rassurant, comme un ami qui tend la main.</p>
+        </div>
+
+        <div class="valeur-card">
+          <div class="icon">
+            <i class="fas fa-lightbulb"></i>
+          </div>
+          <h3>Créativité</h3>
+          <p>Chaque problème est unique, et chaque solution doit être adaptée. Nous cultivons l'esprit créatif pour trouver la réponse la plus efficace et innovante à vos besoins, transformant les défis en opportunités.</p>
+        </div>
+
+        <div class="valeur-card">
+          <div class="icon">
+            <i class="fas fa-fencing"></i>
+          </div>
+          <h3>Esprit d'escrimeur</h3>
+          <p>L'escrime nous inspire : concentration, précision et réactivité. Ces qualités guident notre manière de travailler, pour intervenir rapidement et avec justesse, comme un escrimeur qui lit le mouvement de son adversaire.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fencing Spirit Section -->
+  <section class="fencing-spirit">
+    <div class="fencing-spirit-content">
+      <h2>L'esprit qui nous guide</h2>
+      <p>L'escrime n'est pas seulement un sport que nous pratiquons - c'est une métaphore de notre approche professionnelle. Chaque intervention demande la même concentration, la même anticipation, la même précision qu'un assaut.</p>
+      
+      <div class="fencing-qualities">
+        <div class="quality-card">
+          <i class="fas fa-crosshairs"></i>
+          <h4>Concentration</h4>
+          <p>Être pleinement présent dans l'instant, analyser chaque situation avec attention</p>
+        </div>
+        <div class="quality-card">
+          <i class="fas fa-bullseye"></i>
+          <h4>Précision</h4>
+          <p>Agir avec justesse, trouver la solution exacte sans détours inutiles</p>
+        </div>
+        <div class="quality-card">
+          <i class="fas fa-bolt"></i>
+          <h4>Réactivité</h4>
+          <p>Répondre rapidement aux besoins, s'adapter aux changements avec agilité</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="valeurs-cta">
+    <h3>Prêt à collaborer avec nous ?</h3>
+    <p>Discutons de votre projet et découvrons comment nos valeurs peuvent servir vos ambitions</p>
+    <a href="index.html#contact" class="cta-button">Contactez-nous</a>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-links">
+        <a href="index.html">Accueil</a>
+        <a href="index.html#services">Services</a>
+        <a href="index.html#realisations">Réalisations</a>
+        <a href="valeurs.html">Nos Valeurs</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+      <p>&copy; 2025 JS Multimédias. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Header scroll effect
+    window.addEventListener('scroll', function() {
+      const header = document.querySelector('header');
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Fade in animation on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    // Observe all cards
+    document.querySelectorAll('.valeur-card, .quality-card').forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+      card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(card);
+    });
+  </script>
+</body>
+</html>
