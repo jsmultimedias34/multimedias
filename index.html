@@ -494,6 +494,37 @@
       color: var(--accent);
     }
     
+    /* Video Section */
+    .video-section {
+      padding: 100px 20px;
+      background: linear-gradient(to bottom, var(--bg-darker), #111122);
+      text-align: center;
+    }
+    .video-container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .video-section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+      background: linear-gradient(135deg, var(--secondary), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .promo-video {
+      width: 100%;
+      max-width: 800px;
+      height: auto;
+      border-radius: 15px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      transition: var(--transition);
+    }
+    .promo-video:hover {
+      transform: scale(1.02);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+    }
+    
     /* Portfolio Filters */
     .portfolio-filters {
       display: flex;
@@ -808,7 +839,7 @@
   
   <div class="service-detail">
     <div class="service-image">
-      <img src="https://images.unsplash.com/photo-1563207153-f403bf289096?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Dépannage Informatique">
+      <img src="images/1.jpg" alt="Dépannage Informatique">
     </div>
     <div class="service-content">
       <h3>Dépannage et Maintenance Informatique</h3>
@@ -819,19 +850,19 @@
   
   <div class="service-detail reverse">
     <div class="service-image">
-      <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Formations">
+      <img src="images/2.jpg" alt="Formations">
     </div>
     <div class="service-content">
       <h3>Formations Professionnelles Certifiées Qualiopi</h3>
       <p>J'ai dispensé des formations en bureautique (Word, Excel, etc.) ainsi que sur les logiciels Adobe, notamment Photoshop, Illustrator et Lightroom, en tant que formatrice au sein du centre de formation <a href="https://www.jds.fr/strasbourg/entzheim/formation-cours-adulte/bt-formation-strasbourg-11003_L" target="_blank" style="color: var(--primary); text-decoration: none; font-weight: 600;">BT Formation</a> à Strasbourg.</p>
-      <p>Ce centre, certifié <strong>Qualiopi</strong>, est un acteur reconnu de la formation continue en Alsace et dans plusieurs villes françaises. Il propose un large éventail de formations professionnelles (bureautique, PAO, informatique, langues, comptabilité, management, etc.), accessibles en présentiel comme à distance.</p>
+      <p>Ce centre, certifié <strong>Qualiopi</strong>, est un acteur reconnu de la formation continue en Alsace et dans plusieurs villes françaises. Son siège est situé à Entzheim, près de Strasbourg, et il dispose de plusieurs antennes, notamment à Mulhouse, Colmar, Metz ou encore Besançon. Il propose un large éventail de formations professionnelles (bureautique, PAO, informatique, langues, comptabilité, management, etc.), accessibles en présentiel comme à distance.</p>
       <p><a href="https://images.openai.com/thumbnails/url/ahoLUXicu1mUUVJSUGylr5-al1xUWVCSmqJbkpRnoJdeXJJYkpmsl5yfq5-Zm5ieWmxfaAuUsXL0S7F0Tw6KjIjIKwqrMIlIzQ8utczLTwsLqkwJNvHJNPGwdHV0y_Hxi_RxLtY1KoswCc-PL4ww8ws1srAI0A1RKwYAzacoeg" target="_blank" style="color: var(--accent); text-decoration: underline;">👉 Voir une image de leur établissement</a></p>
     </div>
   </div>
   
   <div class="service-detail">
     <div class="service-image">
-      <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Création de Sites Internet">
+      <img src="images/3.jpg" alt="Création de Sites Internet">
     </div>
     <div class="service-content">
       <h3>Création de Sites Internet</h3>
@@ -842,7 +873,7 @@
   
   <div class="service-detail reverse">
     <div class="service-image">
-      <img src="https://images.unsplash.com/photo-1536240478700-b869070f9279?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Montage Photos et Vidéos">
+      <img src="images/1.jpg" alt="Montage Photos et Vidéos">
     </div>
     <div class="service-content">
       <h3>Montage Photos et Vidéos</h3>
@@ -1016,6 +1047,16 @@
   </div>
 </section>
 
+<section class="video-section">
+  <div class="video-container">
+    <h2>Découvrez notre univers</h2>
+    <video controls autoplay muted loop class="promo-video">
+      <source src="video/video1.mp4" type="video/mp4">
+      Votre navigateur ne supporte pas la lecture de vidéos.
+    </video>
+  </div>
+</section>
+
 <footer id="contact">
   <div class="footer-content">
     <div class="footer-section">
@@ -1051,7 +1092,7 @@
         
         <li>Lundi - Jeudi: 9h30 - 12h  15h - 18h30  </li>
         <li>Vendredi: 10h30 - 12h  15h - 18h30  </li>
-         <li>Samedi: 10h30 - 12h  15h - 18h30  </li>
+         <li>Samedi: à domicile  </li>
         <li>Dimanche: Fermé</li>
       </ul>
     </div>
