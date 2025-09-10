@@ -615,6 +615,92 @@
       color: var(--light);
     }
 
+    /* Bio Section */
+    .bio {
+      padding: 100px 20px;
+      background: linear-gradient(to bottom, var(--bg-darker), #111122);
+    }
+    .bio-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .bio-content {
+      display: flex;
+      gap: 60px;
+      align-items: center;
+    }
+    .bio-image {
+      flex: 1;
+    }
+    .bio-image img {
+      width: 100%;
+      max-width: 400px;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      transition: var(--transition);
+    }
+    .bio-image img:hover {
+      transform: scale(1.02);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+    }
+    .bio-text {
+      flex: 2;
+    }
+    .bio-text h2 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .bio-text h3 {
+      font-size: 1.3rem;
+      margin-bottom: 30px;
+      color: var(--accent);
+      font-weight: 400;
+    }
+    .bio-text p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 25px;
+      color: var(--light);
+    }
+    .valeurs-section {
+      margin-top: 40px;
+      padding: 30px;
+      background: var(--glass);
+      border-radius: 15px;
+      border: 1px solid var(--glass-light);
+    }
+    .valeurs-section h4 {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      color: var(--light);
+      text-align: center;
+    }
+    .valeurs-section > p {
+      text-align: center;
+      margin-bottom: 30px;
+      font-style: italic;
+    }
+    .valeur-item {
+      margin-bottom: 25px;
+      padding: 20px;
+      background: var(--glass-light);
+      border-radius: 10px;
+      border-left: 4px solid var(--accent);
+    }
+    .valeur-item h5 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      color: var(--accent);
+    }
+    .valeur-item p {
+      margin-bottom: 0;
+      font-size: 1rem;
+    }
+
     /* Professionnels */
     .professionnels {
       padding: 100px 20px;
@@ -786,6 +872,32 @@
       .card, .valeur-card {
         padding: 25px 20px;
       }
+      
+      /* Bio Section Responsive */
+      .bio-content {
+        flex-direction: column;
+        gap: 40px;
+      }
+      .bio-image {
+        text-align: center;
+      }
+      .bio-image img {
+        max-width: 300px;
+      }
+      .bio-text h2 {
+        font-size: 2rem;
+        text-align: center;
+      }
+      .bio-text h3 {
+        font-size: 1.1rem;
+        text-align: center;
+      }
+      .valeurs-section {
+        padding: 20px;
+      }
+      .valeurs-section h4 {
+        font-size: 1.3rem;
+      }
     }
 
     /* Animations supplémentaires */
@@ -817,6 +929,7 @@
         <li><a href="#atouts">Atouts</a></li>
         <li><a href="#realisations">Réalisations</a></li>
         <li><a href="valeurs.html">Nos Valeurs</a></li>
+        <li><a href="#bio">Julie</a></li>
         <li><a href="#professionnels">Professionnels</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
@@ -900,6 +1013,46 @@
       <i class="fas fa-star"></i>
       <h3>Satisfaction garantie</h3>
       <p>Un suivi rigoureux et une écoute attentive pour répondre à toutes vos attentes.</p>
+    </div>
+  </div>
+</section>
+
+<section class="bio" id="bio">
+  <div class="bio-container">
+    <div class="bio-content">
+      <div class="bio-image">
+        <img src="images/bio.jpeg" alt="Julie Savinneau - Gérante JS Multimédias" loading="lazy">
+      </div>
+      <div class="bio-text">
+        <h2>Julie Savinneau</h2>
+        <h3>Informaticienne et entrepreneure à Lunel</h3>
+        <p>Depuis 2020, Julie met sa passion de l'informatique au service des particuliers et des professionnels. Curieuse et investie, elle aime autant le contact humain que le travail technique, du conseil aux clients jusqu'au matériel informatique. Son local, situé au cœur du vieux Lunel, s'inscrit dans une ville riche de traditions camarguaises, où modernité et patrimoine se rencontrent.</p>
+        
+        <div class="valeurs-section">
+          <h4>Nos valeurs – Là où la technologie rencontre l'humanité</h4>
+          <p>Chaque projet, chaque dépannage, chaque relation avec un client est guidé par des valeurs qui dépassent la simple technique :</p>
+          
+          <div class="valeur-item">
+            <h5>Respect mutuel</h5>
+            <p>Comme dans un duel d'escrime, chaque échange repose sur l'écoute et la considération. Julie accorde une importance particulière à la bienveillance et au professionnalisme, afin que chaque client se sente entendu et respecté.</p>
+          </div>
+          
+          <div class="valeur-item">
+            <h5>Proximité et aide</h5>
+            <p>Être aux côtés de ceux qui rencontrent une difficulté informatique, c'est un engagement humain. Julie privilégie un contact simple, accessible et rassurant, comme un ami de confiance.</p>
+          </div>
+          
+          <div class="valeur-item">
+            <h5>Créativité</h5>
+            <p>Chaque problème est unique. Julie développe des solutions adaptées, efficaces et innovantes, transformant chaque défi en opportunité.</p>
+          </div>
+          
+          <div class="valeur-item">
+            <h5>Esprit d'escrimeur</h5>
+            <p>Inspirée par l'escrime, elle cultive la concentration, la précision et la réactivité pour intervenir avec justesse et rapidité, à l'image d'un escrimeur qui anticipe le mouvement de son adversaire.</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1047,17 +1200,6 @@
   </div>
 </section>
 
-<section class="video-section">
-  <div class="video-container">
-    <h2>Découvrez notre univers</h2>
-    <video controls autoplay muted loop class="promo-video" poster="images/video-poster.jpg" loading="lazy">
-      <source src="video/video1.webm" type="video/webm">
-      <source src="video/video1.mp4" type="video/mp4">
-      Votre navigateur ne supporte pas la lecture de vidéos.
-    </video>
-  </div>
-</section>
-
 <footer id="contact">
   <div class="footer-content">
     <div class="footer-section">
@@ -1097,6 +1239,19 @@
         <li>Dimanche: Fermé</li>
       </ul>
     </div>
+</section>
+
+<section class="video-section">
+  <div class="video-container">
+    <h2>Découvrez notre univers</h2>
+    <video controls autoplay muted loop class="promo-video" poster="images/video-poster.jpg" loading="lazy">
+      <source src="video/video1.webm" type="video/webm">
+      <source src="video/video1.mp4" type="video/mp4">
+      Votre navigateur ne supporte pas la lecture de vidéos.
+    </video>
+  </div>
+</section>
+
   </div>
   <div class="copyright">
     <p>&copy; 2025 JS Multimédias. Tous droits réservés. | <a href="#" style="color: var(--accent);">Mentions légales</a> | <a href="#" style="color: var(--accent);">Politique de confidentialité</a></p>
