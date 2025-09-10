@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JS Multimédias - Votre Partenaire Digital</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #6c63ff;
+      --secondary: #ff3cac;
+      --accent: #36d1dc;
+      --bg-dark: #0d0d1a;
+      --bg-darker: #050510;
+      --light: #f9f9f9;
+      --glass: rgba(255,255,255,0.08);
+      --glass-light: rgba(255,255,255,0.12);
+      --transition: all .3s ease-in-out;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg-darker);
+      color: var(--light);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    h1,h2,h3 { 
+      font-family: 'Orbitron', sans-serif; 
+      line-height: 1.2;
+    }
+    
+    /* Header amélioré */
+    header {
+      position: sticky; top: 0; z-index: 1000;
+      backdrop-filter: blur(10px);
+      background: var(--glass);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      transition: var(--transition);
+    }
+    header.scrolled {
+      background: rgba(13, 13, 26, 0.95);
+      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    }
+    .nav {
+      max-width: 1200px; margin: auto; padding: 15px 20px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .logo { 
+      font-size: 1.8rem; font-weight: 700; 
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      transition: var(--transition);
+    }
+    .logo:hover {
+      transform: scale(1.05);
+    }
+    nav ul { display: flex; gap: 30px; list-style: none; }
+    nav a {
+      color: white; text-decoration: none; position: relative;
+      font-weight: 500;
+      padding: 5px 0;
+    }
+    nav a::after {
+      content: ""; position: absolute; left: 0; bottom: -4px;
+      width: 0; height: 2px; background: var(--secondary);
+      transition: var(--transition);
+    }
+    nav a:hover::after { width: 100%; }
+
+    /* Menu mobile */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: space-around;
+      width: 30px;
+      height: 25px;
+      cursor: pointer;
+    }
+    .menu-toggle span {
+      width: 100%;
+      height: 3px;
+      background: var(--light);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+
+    /* Hero amélioré */
+    .hero {
+      height: 100vh; display: flex; justify-content: center; align-items: center;
+      background: radial-gradient(circle at top, #1e1e3f, #0d0d1a);
+      text-align: center; padding: 0 20px;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ""; position: absolute; width: 200%; height: 200%;
+      background: conic-gradient(from 180deg, var(--primary), var(--secondary), var(--accent), var(--primary));
+      animation: spin 20s linear infinite;
+      top: -50%; left: -50%; opacity: .1;
+    }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+    .hero-content { 
+      position: relative; z-index: 2; 
+      max-width: 800px;
+    }
+    .hero h1 { 
+      font-size: clamp(2.5rem, 5vw, 4rem); 
+      margin-bottom: 20px; 
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .hero p.subtitle {
+      font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+      margin-bottom: 20px;
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .hero p { 
+      font-size: clamp(1rem, 2.5vw, 1.3rem); 
+      margin-bottom: 40px; 
+      opacity: 0.9; 
+    }
+    .cta {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      padding: 15px 40px; border-radius: 50px;
+      font-weight: 600; text-decoration: none; color: white;
+      transition: var(--transition); 
+      box-shadow: 0 0 20px rgba(108,99,255,.5);
+      display: inline-block;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: 0.5s;
+    }
+    .cta:hover::before {
+      left: 100%;
+    }
+    .cta:hover { 
+      transform: scale(1.05) translateY(-3px); 
+      box-shadow: 0 0 30px rgba(108,99,255,.7);
+    }
+
+    /* Services détaillés */
+    .services-detailed {
+      padding: 100px 20px; 
+      background: linear-gradient(to bottom, #111122, var(--bg-darker));
+      position: relative;
+    }
+    .services-detailed::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--primary), transparent);
+    }
+    .services-detailed h2 { 
+      text-align: center; 
+      margin-bottom: 20px; 
+      font-size: 2.5rem;
+      background: linear-gradient(135deg, var(--secondary), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      position: relative;
+      display: inline-block;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .services-detailed > p {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 60px;
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+    .services-detailed h2::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 3px;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      border-radius: 2px;
+    }
+    .service-detail {
+      max-width: 1200px;
+      margin: 0 auto 60px;
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+    .service-detail.reverse {
+      flex-direction: row-reverse;
+    }
+    .service-image {
+      flex: 1;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+    }
+    .service-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: var(--transition);
+    }
+    .service-image:hover img {
+      transform: scale(1.05);
+    }
+    .service-content {
+      flex: 1;
+    }
+    .service-content h3 {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      color: var(--accent);
+    }
+    .service-content p {
+      margin-bottom: 15px;
+      opacity: 0.9;
+    }
+
+    /* Atouts */
+    .atouts {
+      padding: 100px 20px;
+      background: var(--bg-darker);
+    }
+    .atouts h2 {
+      text-align: center;
+      margin-bottom: 60px;
+      font-size: 2.5rem;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .atouts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .atout-card {
+      background: var(--glass);
+      border-radius: 15px;
+      padding: 30px;
+      text-align: center;
+      transition: var(--transition);
+      border: 1px solid var(--glass-light);
+    }
+    .atout-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+    }
+    .atout-card i {
+      font-size: 2.5rem;
+      color: var(--secondary);
+      margin-bottom: 20px;
+    }
+    .atout-card h3 {
+      margin-bottom: 15px;
+      color: var(--light);
+    }
+
+    /* Partenaires Carousel */
+    .partenaires {
+      padding: 80px 20px;
+      background: linear-gradient(to bottom, var(--bg-darker), #111122);
+      text-align: center;
+    }
+    .partenaires h2 {
+      margin-bottom: 50px;
+      font-size: 2.5rem;
+      background: linear-gradient(135deg, var(--secondary), var(--primary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .carousel-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+      height: 120px;
+    }
+    .carousel-track {
+      display: flex;
+      animation: carousel-scroll 20s linear infinite;
+    }
+    .carousel-item {
+      flex: 0 0 auto;
+      width: 200px;
+      margin: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .carousel-item img {
+      max-width: 100%;
+      max-height: 80px;
+      filter: grayscale(100%) brightness(200%);
+      opacity: 0.7;
+      transition: var(--transition);
+    }
+    .carousel-item img:hover {
+      filter: grayscale(0%) brightness(100%);
+      opacity: 1;
+    }
+    @keyframes carousel-scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* Témoignages */
+    .temoignages {
+      padding: 100px 20px;
+      background: #111122;
+    }
+    .temoignages h2 {
+      text-align: center;
+      margin-bottom: 60px;
+      font-size: 2.5rem;
+      background: linear-gradient(135deg, var(--accent), var(--primary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .temoignages-carousel {
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .temoignage {
+      background: var(--glass);
+      border-radius: 15px;
+      padding: 30px;
+      margin: 0 20px;
+      text-align: center;
+      border: 1px solid var(--glass-light);
+    }
+    .temoignage-text {
+      font-style: italic;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .temoignage-text::before,
+    .temoignage-text::after {
+      content: """;
+      font-size: 3rem;
+      color: var(--primary);
+      opacity: 0.3;
+      position: absolute;
+    }
+    .temoignage-text::before {
+      top: -20px;
+      left: -10px;
+    }
+    .temoignage-text::after {
+      content: """;
+      bottom: -40px;
+      right: -10px;
+    }
+    .temoignage-author {
+      font-weight: 600;
+      color: var(--accent);
+    }
+    .temoignage-role {
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+
+    /* Réalisations */
+    .realisations {
+      padding: 100px 20px;
+      background: var(--bg-darker);
+    }
+    .realisations h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 2.5rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .realisations > p {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 60px;
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+    .filters {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 40px;
+    }
+    .filter-btn {
+      background: var(--glass);
+      border: 1px solid var(--glass-light);
+      color: var(--light);
+      padding: 8px 20px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .filter-btn.active, .filter-btn:hover {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+    }
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 25px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .portfolio-item {
+      border-radius: 15px;
+      overflow: hidden;
+      position: relative;
+      height: 250px;
+      cursor: pointer;
+    }
+    .portfolio-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+    .portfolio-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 20px;
+      opacity: 0;
+      transition: var(--transition);
+    }
+    .portfolio-item:hover .portfolio-overlay {
+      opacity: 1;
+    }
+    .portfolio-item:hover .portfolio-img {
+      transform: scale(1.1);
+    }
+    .portfolio-title {
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: white;
+    }
+    .portfolio-category {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      color: var(--accent);
+    }
+
+    /* Valeurs */
+    .valeurs {
+      padding: 100px 20px;
+      background: linear-gradient(to bottom, #111122, var(--bg-darker));
+    }
+    .valeurs h2 {
+      text-align: center; 
+      margin-bottom: 60px; 
+      font-size: 2.5rem;
+      background: linear-gradient(135deg, var(--accent), var(--primary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      position: relative;
+      display: inline-block;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .valeurs h2::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 3px;
+      background: linear-gradient(to right, var(--accent), var(--primary));
+      border-radius: 2px;
+    }
+    .valeurs-content {
+      max-width: 1000px;
+      margin: 0 auto 60px;
+      text-align: center;
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+    .valeurs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .valeur-card {
+      background: var(--glass);
+      border-radius: 15px;
+      padding: 30px;
+      text-align: center;
+      transition: var(--transition);
+      border: 1px solid var(--glass-light);
+    }
+    .valeur-card:hover {
+      transform: translateY(-5px);
+      background: var(--glass-light);
+    }
+    .valeur-card i {
+      font-size: 2.5rem;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    .valeur-card h3 {
+      margin-bottom: 15px;
+      color: var(--light);
+    }
+
+    /* Professionnels */
+    .professionnels {
+      padding: 100px 20px;
+      background: var(--bg-darker);
+    }
+    .professionnels h2 {
+      text-align: center;
+      margin-bottom: 60px;
+      font-size: 2.5rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .clients-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 30px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .client-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--glass);
+      border-radius: 10px;
+      padding: 20px;
+      height: 100px;
+      transition: var(--transition);
+    }
+    .client-item:hover {
+      transform: scale(1.05);
+      background: var(--glass-light);
+    }
+    .client-item img {
+      max-width: 100%;
+      max-height: 60px;
+      filter: grayscale(100%) brightness(500%);
+      transition: var(--transition);
+    }
+    .client-item:hover img {
+      filter: grayscale(0%) brightness(100%);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--bg-darker);
+      padding: 60px 20px 30px;
+      border-top: 1px solid var(--glass-light);
+    }
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+    }
+    .footer-logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .footer-social {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .footer-social a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--glass);
+      color: var(--light);
+      transition: var(--transition);
+    }
+    .footer-social a:hover {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      transform: translateY(-3px);
+    }
+    .footer-links h3 {
+      margin-bottom: 20px;
+      color: var(--light);
+      font-size: 1.2rem;
+    }
+    .footer-links ul {
+      list-style: none;
+    }
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+    .footer-links a {
+      color: var(--light);
+      opacity: 0.8;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .footer-links a:hover {
+      opacity: 1;
+      color: var(--primary);
+    }
+    .copyright {
+      text-align: center;
+      margin-top: 60px;
+      opacity: 0.7;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 968px) {
+      .service-detail, .service-detail.reverse {
+        flex-direction: column;
+      }
+      .service-image, .service-content {
+        flex: none;
+        width: 100%;
+      }
+    }
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: flex;
+        z-index: 1001;
+      }
+      nav ul {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 70%;
+        flex-direction: column;
+        background: var(--bg-dark);
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition);
+        box-shadow: -5px 0 25px rgba(0,0,0,0.2);
+      }
+      nav ul.active {
+        right: 0;
+      }
+      .hero-content {
+        padding-top: 60px;
+      }
+      .card, .valeur-card {
+        padding: 25px 20px;
+      }
+    }
+
+    /* Animations supplémentaires */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in {
+      animation: fadeIn 1s ease forwards;
+    }
+    .delay-1 { animation-delay: 0.2s; }
+    .delay-2 { animation-delay: 0.4s; }
+    .delay-3 { animation-delay: 0.6s; }
+  </style>
+</head>
+<body>
+
+<header id="header">
+  <div class="nav">
+    <div class="logo">JS Multimédias</div>
+    <div class="menu-toggle" id="menuToggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav>
+      <ul id="menu">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#atouts">Atouts</a></li>
+        <li><a href="#realisations">Réalisations</a></li>
+        <li><a href="#valeurs">Valeurs</a></li>
+        <li><a href="#professionnels">Professionnels</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1 class="fade-in">Bienvenue chez JS Multimédias</h1>
+    <p class="subtitle fade-in delay-1">Votre Partenaire en Solutions Numériques, Informatiques et Créatives</p>
+    <p class="fade-in delay-2">Nous mettons à votre disposition une gamme complète de services pour particuliers et professionnels</p>
+    <a href="#contact" class="cta fade-in delay-3">Nous contacter</a>
+  </div>
+</section>
+
+<section class="services-detailed" id="services">
+  <h2>Nos Services</h2>
+  <p>Découvrez notre gamme complète de services adaptés à vos besoins</p>
+  
+  <div class="service-detail">
+    <div class="service-image">
+      <img src="https://images.unsplash.com/photo-1563207153-f403bf289096?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Dépannage Informatique">
+    </div>
+    <div class="service-content">
+      <h3>Dépannage et Maintenance Informatique</h3>
+      <p>Votre matériel informatique rencontre des problèmes ou nécessite une mise à jour ? Notre équipe de techniciens expérimentés intervient rapidement pour assurer le bon fonctionnement de vos équipements.</p>
+      <p>Nous proposons un service de dépannage et de maintenance sur site ou à distance, afin de résoudre vos pannes et optimiser vos performances informatiques.</p>
+    </div>
+  </div>
+  
+  <div class="service-detail reverse">
+    <div class="service-image">
+      <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Formations">
+    </div>
+    <div class="service-content">
+      <h3>Formations sur Mesure éligibles au CPF</h3>
+      <p>Envie d'acquérir de nouvelles compétences ? Nous proposons des formations sur mesure, adaptées à vos besoins spécifiques.</p>
+      <p>Que ce soit pour améliorer vos compétences informatiques ou pour découvrir de nouveaux outils, nos formations sont éligibles au Compte Personnel de Formation (CPF), vous permettant ainsi de financer votre apprentissage tout en développant vos talents.</p>
+    </div>
+  </div>
+  
+  <div class="service-detail">
+    <div class="service-image">
+      <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Création de Sites Internet">
+    </div>
+    <div class="service-content">
+      <h3>Création de Sites Internet</h3>
+      <p>Un site internet professionnel est aujourd'hui essentiel pour toute entreprise ou particulier souhaitant se démarquer. Nous vous accompagnons dans la création de votre site internet, de sa conception à sa mise en ligne.</p>
+      <p>Nous vous proposons des solutions personnalisées, responsive, et optimisées pour le référencement, afin d'assurer une expérience utilisateur fluide et une visibilité accrue.</p>
+    </div>
+  </div>
+  
+  <div class="service-detail reverse">
+    <div class="service-image">
+      <img src="https://images.unsplash.com/photo-1536240478700-b869070f9279?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Montage Photos et Vidéos">
+    </div>
+    <div class="service-content">
+      <h3>Montage Photos et Vidéos</h3>
+      <p>Que ce soit pour des événements privés ou professionnels, nous vous offrons des services de montage photos et vidéos sur mesure.</p>
+      <p>Valorisez vos moments précieux ou boostez vos contenus numériques grâce à nos prestations de montage créatives et professionnelles, adaptées à vos attentes.</p>
+    </div>
+  </div>
+</section>
+
+<section class="atouts" id="atouts">
+  <h2>Nos Atouts</h2>
+  <div class="atouts-grid">
+    <div class="atout-card fade-in">
+      <i class="fas fa-user-tie"></i>
+      <h3>Expertise et expérience</h3>
+      <p>Une équipe compétente et passionnée pour vous accompagner dans tous vos projets multimédias.</p>
+    </div>
+    <div class="atout-card fade-in delay-1">
+      <i class="fas fa-puzzle-piece"></i>
+      <h3>Solutions sur mesure</h3>
+      <p>Des services personnalisés adaptés à vos besoins spécifiques.</p>
+    </div>
+    <div class="atout-card fade-in delay-2">
+      <i class="fas fa-star"></i>
+      <h3>Satisfaction garantie</h3>
+      <p>Un suivi rigoureux et une écoute attentive pour répondre à toutes vos attentes.</p>
+    </div>
+  </div>
+</section>
+
+<section class="partenaires">
+  <h2>Nos Partenaires</h2>
+  <div class="carousel-container">
+    <div class="carousel-track">
+      <div class="carousel-item"><img src="https://via.placeholder.com/200x80/6c63ff/ffffff?text=BGE" alt="BGE"></div>
+      <div class="carousel-item"><img src="https://via.placeholder.com/200x80/ff3cac/ffffff?text=Banque" alt="Banque Partenaire"></div>
+      <div class="carousel-item"><img src="https://via.placeholder.com/200x80/36d1dc/ffffff?text=Partenaire+1" alt="Partenaire 1"></div>
+      <div class="carousel-item"><img src="https://via.placeholder.com/200x80/6c63ff/ffffff?text=Partenaire+2" alt="Partenaire 2"></div>
+      <div class="carousel-item"><img src="https://via.placeholder.com/200x80/ff3cac/ffffff?text=Partenaire+3" alt="Partenaire 3"></div>
+      <div class="carousel-item"><img src="https://via.placeholder.com/200x80/36d1dc/ffffff?text=Partenaire+4" alt="Partenaire 4"></div>
+      <div class="carousel-item"><img src="https://via.placeholder.com/200x80/6c63ff/ffffff?text=Partenaire+5" alt="Partenaire 5"></div>
+      <div class="carousel-item"><img src="https://via.placeholder.com/200x80/ff3cac/ffffff?text=Partenaire+6" alt="Partenaire 6"></div>
+    </div>
+  </div>
+</section>
+
+<section class="temoignages">
+  <h2>Témoignages</h2>
+  <div class="temoignages-carousel">
+    <div class="temoignage">
+      <div class="temoignage-text">
+        "JS Multimédias a créé un site internet exceptionnel pour mon entreprise. Leur professionnalisme et leur réactivité ont dépassé toutes mes attentes."
+      </div>
+      <div class="temoignage-author">Marie Dupont</div>
+      <div class="temoignage-role">Directrice Marketing, Entreprise ABC</div>
+    </div>
+  </div>
+</section>
+
+<section class="realisations" id="realisations">
+  <h2>Nos Réalisations</h2>
+  <p>Découvrez quelques exemples de projets réalisés par JS Multimédias : des sites web créés sur mesure, des formations réussies, ainsi que des montages photos et vidéos qui ont su captiver notre clientèle. Chaque projet est unique et personnalisé selon les besoins spécifiques de nos clients.</p>
+  
+  <div class="filters">
+    <button class="filter-btn active">Tous</button>
+    <button class="filter-btn">Sites Web</button>
+    <button class="filter-btn">Formations</button>
+    <button class="filter-btn">Montages</button>
+  </div>
+  
+  <div class="portfolio-grid">
+    <div class="portfolio-item">
+      <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Projet 1" class="portfolio-img">
+      <div class="portfolio-overlay">
+        <div class="portfolio-title">Site E-commerce</div>
+        <div class="portfolio-category">Création de Site Web</div>
+      </div>
+    </div>
+    <div class="portfolio-item">
+      <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Projet 2" class="portfolio-img">
+      <div class="portfolio-overlay">
+        <div class="portfolio-title">Formation Adobe</div>
+        <div class="portfolio-category">Formation</div>
+      </div>
+    </div>
+    <div class="portfolio-item">
+      <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Projet 3" class="portfolio-img">
+      <div class="portfolio-overlay">
+        <div class="portfolio-title">Montage Vidéo</div>
+        <div class="portfolio-category">Montage</div>
+      </div>
+    </div>
+    <div class="portfolio-item">
+      <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Projet 4" class="portfolio-img">
+      <div class="portfolio-overlay">
+        <div class="portfolio-title">Site Portfolio</div>
+        <div class="portfolio-category">Création de Site Web</div>
+      </div>
+    </div>
+    <div class="portfolio-item">
+      <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Projet 5" class="portfolio-img">
+      <div class="portfolio-overlay">
+        <div class="portfolio-title">Formation Excel</div>
+        <div class="portfolio-category">Formation</div>
+      </div>
+    </div>
+    <div class="portfolio-item">
+      <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Projet 6" class="portfolio-img">
+      <div class="portfolio-overlay">
+        <div class="portfolio-title">Album Photo</div>
+        <div class="portfolio-category">Montage</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="valeurs" id="valeurs">
+  <h2>Nos Valeurs</h2>
+  <div class="valeurs-content">
+    <p>Chez JS Multimédias, nous croyons en la technologie comme un moyen de rendre la vie plus simple et plus productive. Notre engagement va au-delà de la simple prestation de services - nous construisons des partenariats durables basés sur la confiance, l'excellence et l'innovation.</p>
+  </div>
+  <div class="valeurs-grid">
+    <div class="valeur-card">
+      <i class="fas fa-handshake"></i>
+      <h3>Transparence</h3>
+      <p>Une communication claire et honnête à chaque étape de votre projet.</p>
+    </div>
+    <div class="valeur-card">
+      <i class="fas fa-lightbulb"></i>
+      <h3>Innovation</h3>
+      <p>Des solutions créatives et modernes adaptées à vos besoins évolutifs.</p>
+    </div>
+    <div class="valeur-card">
+      <i class="fas fa-heart"></i>
+      <h3>Passion</h3>
+      <p>Un amour sincère pour notre métier qui se reflète dans chaque réalisation.</p>
+    </div>
+    <div class="valeur-card">
+      <i class="fas fa-shield-alt"></i>
+      <h3>Fiabilité</h3>
+      <p>Des engagements tenus et une qualité de service constante.</p>
+    </div>
+  </div>
+</section>
+
+<section class="professionnels" id="professionnels">
+  <h2>Nos Clients Professionnels</h2>
+  <div class="clients-grid">
+    <div class="client-item">
+      <img src="https://via.placeholder.com/150x60/ffffff/6c63ff?text=Client+1" alt="Client 1">
+    </div>
+    <div class="client-item">
+      <img src="https://via.placeholder.com/150x60/ffffff/ff3cac?text=Client+2" alt="Client 2">
+    </div>
+    <div class="client-item">
+      <img src="https://via.placeholder.com/150x60/ffffff/36d1dc?text=Client+3" alt="Client 3">
+    </div>
+    <div class="client-item">
+      <img src="https://via.placeholder.com/150x60/ffffff/6c63ff?text=Client+4" alt="Client 4">
+    </div>
+    <div class="client-item">
+      <img src="https://via.placeholder.com/150x60/ffffff/ff3cac?text=Client+5" alt="Client 5">
+    </div>
+    <div class="client-item">
+      <img src="https://via.placeholder.com/150x60/ffffff/36d1dc?text=Client+6" alt="Client 6">
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="footer-content">
+    <div class="footer-section">
+      <div class="footer-logo">JS Multimédias</div>
+      <p>Votre partenaire digital pour tous vos projets informatiques et créatifs.</p>
+      <div class="footer-social">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+    <div class="footer-links">
+      <h3>Services</h3>
+      <ul>
+        <li><a href="#services">Dépannage Informatique</a></li>
+        <li><a href="#services">Formations CPF</a></li>
+        <li><a href="#services">Création de Sites Web</a></li>
+        <li><a href="#services">Montage Photo/Vidéo</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h3>Contact</h3>
+      <ul>
+        <li><i class="fas fa-phone"></i> 06 12 34 56 78</li>
+        <li><i class="fas fa-envelope"></i> contact@jsmultimedias.fr</li>
+        <li><i class="fas fa-map-marker-alt"></i> Votre ville, France</li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h3>Horaires</h3>
+      <ul>
+        <li>Lundi - Vendredi: 9h - 18h</li>
+        <li>Samedi: 9h - 12h</li>
+        <li>Dimanche: Fermé</li>
+      </ul>
+    </div>
+  </div>
+  <div class="copyright">
+    <p>&copy; 2024 JS Multimédias. Tous droits réservés. | <a href="#" style="color: var(--accent);">Mentions légales</a> | <a href="#" style="color: var(--accent);">Politique de confidentialité</a></p>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu toggle
+  const menuToggle = document.getElementById('menuToggle');
+  const menu = document.getElementById('menu');
+  
+  menuToggle.addEventListener('click', () => {
+    menu.classList.toggle('active');
+  });
+
+  // Close menu when clicking on a link
+  document.querySelectorAll('nav a').forEach(link => {
+    link.addEventListener('click', () => {
+      menu.classList.remove('active');
+    });
+  });
+
+  // Header scroll effect
+  window.addEventListener('scroll', () => {
+    const header = document.getElementById('header');
+    if (window.scrollY > 50) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  });
+
+  // Smooth scrolling for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
+
+  // Portfolio filter functionality
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Remove active class from all buttons
+      filterBtns.forEach(b => b.classList.remove('active'));
+      // Add active class to clicked button
+      btn.classList.add('active');
+
+      const filter = btn.textContent.trim();
+      
+      portfolioItems.forEach(item => {
+        const category = item.querySelector('.portfolio-category').textContent.trim();
+        
+        if (filter === 'Tous' || category === filter) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // Simple carousel animation for partners
+  const carouselTrack = document.querySelector('.carousel-track');
+  if (carouselTrack) {
+    const items = carouselTrack.innerHTML;
+    carouselTrack.innerHTML = items + items; // Duplicate items for seamless loop
+    
+    let position = 0;
+    setInterval(() => {
+      position -= 1;
+      carouselTrack.style.transform = `translateX(${position}px)`;
+      
+      // Reset position when half way through
+      if (Math.abs(position) >= carouselTrack.scrollWidth / 2) {
+        position = 0;
+      }
+    }, 30);
+  }
+
+  // Intersection Observer for fade-in animations
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, observerOptions);
+
+  // Observe all fade-in elements
+  document.querySelectorAll('.fade-in').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 1s ease, transform 1s ease';
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
