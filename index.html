@@ -311,8 +311,8 @@
       margin: 0 auto;
       position: relative;
       overflow: hidden;
-      height: 140px;
-      padding: 20px 0;
+      height: 180px;
+      padding: 30px 0;
     }
     .carousel-track {
       display: flex;
@@ -320,8 +320,8 @@
     }
     .carousel-item {
       flex: 0 0 auto;
-      width: 200px;
-      margin: 0 20px;
+      width: 180px;
+      margin: 0 25px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -332,17 +332,19 @@
     }
     .carousel-item img {
       max-width: 100%;
-      max-height: 100px;
-      filter: grayscale(80%) brightness(120%);
-      opacity: 0.9;
+      max-height: 80px;
+      filter: grayscale(60%) brightness(130%);
+      opacity: 0.95;
       transition: var(--transition);
       image-rendering: -webkit-optimize-contrast;
       image-rendering: crisp-edges;
+      object-fit: contain;
     }
     .carousel-item img:hover {
-      filter: grayscale(0%) brightness(100%);
+      filter: grayscale(0%) brightness(110%);
       opacity: 1;
-      transform: scale(1.05);
+      transform: scale(1.08);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     }
     
     /* Image Zoom Modal */
@@ -503,18 +505,24 @@
       border-radius: 15px;
       overflow: hidden;
       position: relative;
-      height: 250px;
+      height: auto;
+      min-height: 250px;
       cursor: pointer;
       background: var(--glass);
       transition: var(--transition);
       opacity: 1;
       transform: scale(1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
     }
     .portfolio-img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       transition: var(--transition);
+      background: var(--glass-light);
     }
     .portfolio-overlay {
       position: absolute;
@@ -1005,7 +1013,7 @@
   
   <div class="service-detail">
     <div class="service-image">
-      <img src="images/depannage.jpg" alt="Dépannage Informatique">
+      <img src="images/IMG_0709.jpeg" alt="Dépannage Informatique">
     </div>
     <div class="service-content">
       <h3>Dépannage et Maintenance Informatique</h3>
@@ -1114,8 +1122,8 @@
   <div class="video-container">
     <h2>Découvrez notre univers</h2>
     <video controls autoplay muted loop class="promo-video" poster="images/video-poster.jpg" loading="lazy">
-      <source src="video/video1.webm" type="video/webm">
-      <source src="video/video1.mp4" type="video/mp4">
+      <source src="video/IMG_0722.webm" type="video/webm">
+      <source src="video/IMG_0722.mp4" type="video/mp4">
       Votre navigateur ne supporte pas la lecture de vidéos.
     </video>
   </div>
@@ -1158,42 +1166,42 @@
   
   <div class="portfolio-grid">
     <div class="portfolio-item">
-      <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Projet 1" class="portfolio-img">
+      <img src="images/IMG_0705.jpeg" alt="Projet 1" class="portfolio-img">
       <div class="portfolio-overlay">
         <div class="portfolio-title">Site E-commerce</div>
         <div class="portfolio-category">Création de Site Web</div>
       </div>
     </div>
     <div class="portfolio-item">
-      <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Projet 2" class="portfolio-img">
+      <img src="images/IMG_0706.jpeg" alt="Projet 2" class="portfolio-img">
       <div class="portfolio-overlay">
         <div class="portfolio-title">Formation Adobe</div>
         <div class="portfolio-category">Formation</div>
       </div>
     </div>
     <div class="portfolio-item">
-      <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Projet 3" class="portfolio-img">
+      <img src="images/IMG_0709.jpeg" alt="Projet 3" class="portfolio-img">
       <div class="portfolio-overlay">
         <div class="portfolio-title">Montage Vidéo</div>
         <div class="portfolio-category">Montage</div>
       </div>
     </div>
     <div class="portfolio-item">
-      <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Projet 4" class="portfolio-img">
+      <img src="images/IMG_0712.jpeg" alt="Projet 4" class="portfolio-img">
       <div class="portfolio-overlay">
         <div class="portfolio-title">Site Portfolio</div>
         <div class="portfolio-category">Création de Site Web</div>
       </div>
     </div>
     <div class="portfolio-item">
-      <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Projet 5" class="portfolio-img">
+      <img src="images/IMG_0724 (1).jpeg" alt="Projet 5" class="portfolio-img">
       <div class="portfolio-overlay">
         <div class="portfolio-title">Formation Excel</div>
         <div class="portfolio-category">Formation</div>
       </div>
     </div>
     <div class="portfolio-item">
-      <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Projet 6" class="portfolio-img">
+      <img src="images/IMG_0724.jpeg" alt="Projet 6" class="portfolio-img">
       <div class="portfolio-overlay">
         <div class="portfolio-title">Album Photo</div>
         <div class="portfolio-category">Montage</div>
@@ -1522,6 +1530,34 @@
     if (e.key === 'Escape') {
       closeImageModal();
     }
+  });
+
+  // Image loading optimization for portfolio
+  document.addEventListener('DOMContentLoaded', function() {
+    const portfolioImages = document.querySelectorAll('.portfolio-img');
+    
+    portfolioImages.forEach(img => {
+      // Add loading lazy for better performance
+      img.loading = 'lazy';
+      
+      // Add error handling
+      img.onerror = function() {
+        this.style.display = 'none';
+        const overlay = this.closest('.portfolio-item').querySelector('.portfolio-overlay');
+        if (overlay) {
+          overlay.style.opacity = '1';
+          overlay.style.background = 'var(--glass)';
+        }
+      };
+    });
+
+    // Preload larger images for better modal experience
+    const modalImages = document.querySelectorAll('.carousel-item');
+    modalImages.forEach(item => {
+      const imgSrc = item.getAttribute('onclick').match(/'([^']+)'/)[1];
+      const img = new Image();
+      img.src = imgSrc;
+    });
   });
 </script>
 
