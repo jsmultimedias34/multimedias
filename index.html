@@ -818,6 +818,45 @@
       max-width: 1400px;
       margin: 0 auto;
     }
+    
+    /* Optimisation du chargement des images */
+    .client-item {
+      position: relative;
+    }
+    
+    .client-item img {
+      opacity: 0;
+      transition: opacity 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+    }
+    
+    .client-item img.loaded {
+      opacity: 1;
+    }
+    
+    /* Placeholder pendant le chargement */
+    .client-item::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60px;
+      height: 60px;
+      border: 3px solid var(--glass-light);
+      border-top: 3px solid var(--primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .client-item.loading::after {
+      opacity: 1;
+    }
+    
+    .client-item:not(.loading)::after {
+      display: none;
+    }
     .client-item {
       background: var(--glass);
       border-radius: 20px;
@@ -877,6 +916,28 @@
     .client-item:hover .client-name {
       opacity: 1;
       transform: translateY(0);
+    }
+
+    /* Animation pour le loader */
+    @keyframes spin {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    /* Correction du CSS des images clients */
+    .client-item img {
+      max-width: 100%;
+      max-height: 120px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      transition: var(--transition);
+      filter: grayscale(30%) brightness(120%);
+      opacity: 1; /* Retirer l'opacité 0 du code précédent */
+    }
+
+    .client-item img.loaded {
+      opacity: 1;
     }
     
     /* Section clients premium (plus grande) */
@@ -945,6 +1006,7 @@
       opacity: 0.8;
       line-height: 1.5;
     }
+    .premium-desc img {
       height: auto;
       opacity: 0.8;
       transition: var(--transition);
@@ -1119,6 +1181,64 @@
     .delay-1 { animation-delay: 0.2s; }
     .delay-2 { animation-delay: 0.4s; }
     .delay-3 { animation-delay: 0.6s; }
+
+    /* Progressive Image Loading System */
+    .progressive-image {
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+      width: 100%;
+      height: auto;
+    }
+    
+    .progressive-image.loaded {
+      opacity: 1;
+    }
+    
+    .image-placeholder {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: loading 1.5s infinite;
+      border-radius: 8px;
+      display: none;
+    }
+    
+    .image-container {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .image-container.loading .image-placeholder {
+      display: block;
+    }
+    
+    .image-container.loading .progressive-image {
+      opacity: 0;
+    }
+    
+    @keyframes loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* Enhanced lazy loading for all images */
+    img[loading="lazy"] {
+      transition: opacity 0.3s ease-in-out;
+    }
+    
+    /* Portfolio images progressive loading */
+    .portfolio-img {
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+    
+    .portfolio-img.loaded {
+      opacity: 1;
+    }
   </style>
 </head>
 <body>
@@ -1158,7 +1278,8 @@
   <div class="bio-container">
     <div class="bio-content">
       <div class="bio-image">
-        <img src="images/bio.jpeg" alt="Julie Savinneau - Gérante JS Multimédias" loading="lazy">
+        <img src="images/bio.jpeg" alt="Julie Savinneau - Gérante JS Multimédias" loading="lazy" class="progressive-image">
+        <div class="image-placeholder"></div>
       </div>
       <div class="bio-text">
         <h2>Julie Savinneau</h2>
@@ -1199,7 +1320,8 @@
   
   <div class="service-detail">
     <div class="service-image">
-      <img src="images/IMG_0709.jpeg" alt="Dépannage Informatique">
+      <img src="images/IMG_0709.jpeg" alt="Dépannage Informatique" loading="lazy" class="progressive-image">
+      <div class="image-placeholder"></div>
     </div>
     <div class="service-content">
       <h3>Dépannage et Maintenance Informatique</h3>
@@ -1210,7 +1332,8 @@
   
   <div class="service-detail reverse">
     <div class="service-image">
-      <img src="images/formation.jpg" alt="Formations">
+      <img src="images/formation.jpg" alt="Formations" loading="lazy" class="progressive-image">
+      <div class="image-placeholder"></div>
     </div>
     <div class="service-content">
       <h3>Formations Professionnelles Certifiées Qualiopi</h3>
@@ -1221,7 +1344,8 @@
   
   <div class="service-detail">
     <div class="service-image">
-      <img src="images/creation.jpg" alt="Création de Sites Internet">
+      <img src="images/creation.jpg" alt="Création de Sites Internet" loading="lazy" class="progressive-image">
+      <div class="image-placeholder"></div>
     </div>
     <div class="service-content">
       <h3>Création de Sites Internet</h3>
@@ -1232,7 +1356,8 @@
   
   <div class="service-detail reverse">
     <div class="service-image">
-      <img src="images/video.jpg" alt="Montage Photos et Vidéos">
+      <img src="images/video.jpg" alt="Montage Photos et Vidéos" loading="lazy" class="progressive-image">
+      <div class="image-placeholder"></div>
     </div>
     <div class="service-content">
       <h3>Montage Photos et Vidéos</h3>
@@ -1397,19 +1522,19 @@
   <h2>Mes Clients Professionnels</h2>
   <div class="clients-grid">
     <div class="client-item">
-      <img src="images/balcon.png" alt="Client 1">
+      <img src="images/balcon.png" alt="Balcon" loading="lazy" width="180" height="80">
     </div>
     <div class="client-item">
-      <img src="images/bge.png" alt="Client 2">
+      <img src="images/bge.png" alt="BGE" loading="lazy" width="180" height="80">
     </div>
     <div class="client-item">
-      <img src="images/e2c.png" alt="Client 3">
+      <img src="images/e2c.png" alt="E2C" loading="lazy" width="180" height="80">
     </div>
     <div class="client-item">
-      <img src="images/crfp.png" alt="Client 4">
+      <img src="images/crfp.png" alt="CRFP" loading="lazy" width="180" height="80">
     </div>
     <div class="client-item">
-      <img src="images/coteboheme.png" alt="Client 5">
+      <img src="images/coteboheme.png" alt="Côté Bohème" loading="lazy" width="180" height="80">
     </div>
   </div>
 </section>
@@ -1705,6 +1830,60 @@
       const img = new Image();
       img.src = imgSrc;
     });
+
+    // Optimisation du chargement des images clients
+    function loadClientImages() {
+      const clientItems = document.querySelectorAll('.client-item');
+      const images = document.querySelectorAll('.client-item img');
+      
+      // Marquer tous les items comme loading
+      clientItems.forEach(item => item.classList.add('loading'));
+      
+      // Créer un tableau de promesses pour le chargement
+      const imagePromises = Array.from(images).map(img => {
+        return new Promise((resolve) => {
+          if (img.complete) {
+            resolve();
+          } else {
+            img.addEventListener('load', resolve);
+            img.addEventListener('error', resolve); // Même en cas d'erreur, on continue
+          }
+        });
+      });
+      
+      // Attendre que toutes les images soient chargées
+      Promise.all(imagePromises).then(() => {
+        // Retirer l'état loading et afficher les images
+        clientItems.forEach(item => {
+          item.classList.remove('loading');
+          const img = item.querySelector('img');
+          if (img) {
+            img.classList.add('loaded');
+          }
+        });
+      });
+    }
+
+    // Charger les images clients quand la section devient visible
+    const observerOptions = {
+      root: null,
+      rootMargin: '100px',
+      threshold: 0.1
+    };
+
+    const clientObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          loadClientImages();
+          clientObserver.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    const clientsSection = document.getElementById('professionnels');
+    if (clientsSection) {
+      clientObserver.observe(clientsSection);
+    }
   });
 </script>
 
