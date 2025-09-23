@@ -762,42 +762,189 @@
       font-size: 1rem;
     }
 
-    /* Professionnels */
+    /* Professionnels - Version Améliorée */
     .professionnels {
-      padding: 100px 20px;
-      background: var(--bg-darker);
+      padding: 120px 20px;
+      background: linear-gradient(to bottom, #111122, var(--bg-darker));
+      position: relative;
+    }
+    .professionnels::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--primary), transparent);
     }
     .professionnels h2 {
       text-align: center;
-      margin-bottom: 60px;
-      font-size: 2.5rem;
+      margin-bottom: 40px;
+      font-size: 3rem;
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
+      position: relative;
+      display: inline-block;
+      left: 50%;
+      transform: translateX(-50%);
     }
+    .professionnels h2::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      border-radius: 2px;
+    }
+    .professionnels-subtitle {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 60px;
+      font-size: 1.2rem;
+      opacity: 0.9;
+      line-height: 1.6;
+    }
+    
+    /* Nouvelle grille clients avec images plus grandes */
     .clients-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 30px;
-      max-width: 1000px;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      max-width: 1400px;
       margin: 0 auto;
     }
     .client-item {
+      background: var(--glass);
+      border-radius: 20px;
+      padding: 30px;
+      transition: var(--transition);
+      border: 1px solid var(--glass-light);
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      background: var(--glass);
-      padding: 20px;
-      border-radius: 10px;
-      transition: var(--transition);
+      min-height: 200px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .client-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      transition: 0.5s;
+    }
+    .client-item:hover::before {
+      left: 100%;
     }
     .client-item:hover {
-      transform: translateY(-5px);
+      transform: translateY(-10px) scale(1.02);
       background: var(--glass-light);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
     }
     .client-item img {
       max-width: 100%;
+      max-height: 120px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      transition: var(--transition);
+      filter: grayscale(30%) brightness(120%);
+    }
+    .client-item:hover img {
+      filter: grayscale(0%) brightness(100%);
+      transform: scale(1.1);
+    }
+    .client-name {
+      margin-top: 15px;
+      font-weight: 600;
+      color: var(--accent);
+      text-align: center;
+      font-size: 1.1rem;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: var(--transition);
+    }
+    .client-item:hover .client-name {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Section clients premium (plus grande) */
+    .clients-premium {
+      margin-top: 80px;
+    }
+    .clients-premium h3 {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2rem;
+      color: var(--accent);
+      position: relative;
+    }
+    .clients-premium h3::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: var(--secondary);
+      border-radius: 2px;
+    }
+    .premium-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 50px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .premium-client {
+      background: linear-gradient(135deg, var(--glass), var(--glass-light));
+      border-radius: 25px;
+      padding: 40px;
+      text-align: center;
+      border: 2px solid rgba(108, 99, 255, 0.3);
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .premium-client:hover {
+      transform: translateY(-15px);
+      border-color: var(--primary);
+      box-shadow: 0 25px 50px rgba(108, 99, 255, 0.2);
+    }
+    .premium-client img {
+      max-width: 100%;
+      max-height: 150px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      margin-bottom: 20px;
+      transition: var(--transition);
+    }
+    .premium-client:hover img {
+      transform: scale(1.15);
+    }
+    .premium-name {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--light);
+      margin-bottom: 10px;
+    }
+    .premium-desc {
+      font-size: 1rem;
+      opacity: 0.8;
+      line-height: 1.5;
+    }
       height: auto;
       opacity: 0.8;
       transition: var(--transition);
@@ -1003,7 +1150,7 @@
     <h1 class="fade-in">Bienvenue chez JS Multimédias</h1>
     <p class="subtitle fade-in delay-1">Votre Partenaire en Solutions Numériques, Informatiques et Créatives</p>
     <p class="fade-in delay-2">Nous mettons à votre disposition une gamme complète de services pour particuliers et professionnels</p>
-    <a href="#contact" class="cta fade-in delay-3">Nous contacter</a>
+    <a href="#contact" class="cta fade-in delay-3">Me contacter</a>
   </div>
 </section>
 
@@ -1018,7 +1165,7 @@
         <h3>Informaticienne et entrepreneure à Lunel</h3>
         <p>Depuis 2020, je mets ma passion de l'informatique au service des particuliers et des professionnels. Curieuse et investie, j'aime autant le contact humain que le travail technique, du conseil aux clients jusqu'au matériel informatique. Mon local, situé au cœur du vieux Lunel, s'inscrit dans une ville riche de traditions camarguaises, où modernité et patrimoine se rencontrent.</p>
 <div class="valeurs-section">
-          <h4>Nos valeurs – Là où la technologie rencontre l'humanité</h4>
+          <h4>Mes valeurs – Là où la technologie rencontre l'humanité</h4>
           <p>Chaque projet, chaque dépannage, chaque relation avec un client est guidé par des valeurs qui dépassent la simple technique :</p>
           
           <div class="valeur-item">
