@@ -2940,6 +2940,7 @@
       updateCarousel();
       updateIndicators();
       startAutoPlay();
+      addCardAnimations();
     }
 
     // Update carousel position
@@ -2947,12 +2948,42 @@
       const offset = -currentIndex * cardWidth;
       carouselTrack.style.transform = `translateX(${offset}px)`;
       updateIndicators();
+      updateCardStates();
     }
 
     // Update active indicator
     function updateIndicators() {
       indicators.forEach((indicator, index) => {
         indicator.classList.toggle('active', index === currentIndex);
+      });
+    }
+
+    // Update card states (active/inactive)
+    function updateCardStates() {
+      cards.forEach((card, index) => {
+        const isActive = index === currentIndex;
+        card.classList.toggle('active', isActive);
+        card.classList.toggle('inactive', !isActive);
+        
+        // Add parallax effect for non-active cards
+        if (!isActive) {
+          const distance = Math.abs(index - currentIndex);
+          const opacity = Math.max(0.3, 1 - distance * 0.2);
+          const scale = Math.max(0.9, 1 - distance * 0.05);
+          card.style.opacity = opacity;
+          card.style.transform = `scale(${scale})`;
+        } else {
+          card.style.opacity = '1';
+          card.style.transform = 'scale(1)';
+        }
+      });
+    }
+
+    // Add entrance animations to cards
+    function addCardAnimations() {
+      cards.forEach((card, index) => {
+        card.style.animationDelay = `${index * 0.1}s`;
+        card.classList.add('animate-in');
       });
     }
 
@@ -2992,26 +3023,52 @@
       clearInterval(autoPlayInterval);
     }
 
+    // Enhanced button click effects
+    function addButtonEffects(button) {
+      button.addEventListener('click', function() {
+        // Add ripple effect
+        const ripple = document.createElement('span');
+        const rect = button.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = event.clientX - rect.left - size / 2;
+        const y = event.clientY - rect.top - size / 2;
+        
+        ripple.style.cssText = `
+          position: absolute;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.6);
+          transform: scale(0);
+          animation: ripple 0.6s linear;
+          width: ${size}px;
+          height: ${size}px;
+          left: ${x}px;
+          top: ${y}px;
+        `;
+        
+        button.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 600);
+        
+        stopAutoPlay();
+        if (button.classList.contains('next')) {
+          nextSlide();
+        } else {
+          prevSlide();
+        }
+        startAutoPlay();
+      });
+    }
+
     // Event listeners
-    if (nextBtn) {
-      nextBtn.addEventListener('click', () => {
-        stopAutoPlay();
-        nextSlide();
-        startAutoPlay();
-      });
-    }
+    if (nextBtn) addButtonEffects(nextBtn);
+    if (prevBtn) addButtonEffects(prevBtn);
 
-    if (prevBtn) {
-      prevBtn.addEventListener('click', () => {
-        stopAutoPlay();
-        prevSlide();
-        startAutoPlay();
-      });
-    }
-
-    // Indicator clicks
+    // Indicator clicks with enhanced feedback
     indicators.forEach((indicator, index) => {
-      indicator.addEventListener('click', () => {
+      indicator.addEventListener('click', function() {
+        // Add click animation
+        this.style.animation = 'pulse 0.3s ease';
+        setTimeout(() => this.style.animation = '', 300);
+        
         stopAutoPlay();
         goToSlide(index);
         startAutoPlay();
@@ -3022,7 +3079,7 @@
     carouselTrack.addEventListener('mouseenter', stopAutoPlay);
     carouselTrack.addEventListener('mouseleave', startAutoPlay);
 
-    // Touch/swipe support for mobile
+    // Enhanced touch/swipe support for mobile
     let startX = 0;
     let currentX = 0;
     let isDragging = false;
@@ -3031,6 +3088,7 @@
       startX = e.touches[0].clientX;
       isDragging = true;
       stopAutoPlay();
+      carouselTrack.style.transition = 'none'; // Disable transition during drag
     });
 
     carouselTrack.addEventListener('touchmove', (e) => {
@@ -3043,6 +3101,7 @@
     carouselTrack.addEventListener('touchend', () => {
       if (!isDragging) return;
       isDragging = false;
+      carouselTrack.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
       
       const diff = startX - currentX;
       const threshold = cardWidth / 4;
