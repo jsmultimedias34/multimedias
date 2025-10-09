@@ -1239,6 +1239,303 @@
     .portfolio-img.loaded {
       opacity: 1;
     }
+
+    /* Audio Player Styles */
+    .video-audio-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+      align-items: start;
+    }
+    
+    .audio-player-container h2 {
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      background: linear-gradient(135deg, var(--secondary), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-align: center;
+    }
+    
+    .audio-player {
+      background: var(--glass);
+      border-radius: 20px;
+      padding: 30px;
+      border: 1px solid var(--glass-light);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+      transition: var(--transition);
+    }
+    
+    .audio-player:hover {
+      background: var(--glass-light);
+      transform: translateY(-5px);
+    }
+    
+    .player-header {
+      margin-bottom: 25px;
+    }
+    
+    .now-playing {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .track-info {
+      flex: 1;
+    }
+    
+    .track-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--light);
+      margin-bottom: 5px;
+    }
+    
+    .track-artist {
+      font-size: 0.9rem;
+      color: var(--accent);
+      opacity: 0.8;
+    }
+    
+    .playlist {
+      margin-bottom: 25px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    
+    .playlist::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    .playlist::-webkit-scrollbar-track {
+      background: var(--glass-light);
+      border-radius: 3px;
+    }
+    
+    .playlist::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 3px;
+    }
+    
+    .playlist-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 12px 15px;
+      border-radius: 10px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: var(--transition);
+      background: var(--glass-light);
+    }
+    
+    .playlist-item:hover {
+      background: rgba(108, 99, 255, 0.1);
+      transform: translateX(5px);
+    }
+    
+    .playlist-item.active {
+      background: linear-gradient(135deg, rgba(108, 99, 255, 0.2), rgba(255, 60, 172, 0.1));
+      border-left: 3px solid var(--primary);
+    }
+    
+    .playlist-number {
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background: var(--glass);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--light);
+    }
+    
+    .playlist-item.active .playlist-number {
+      background: var(--primary);
+    }
+    
+    .playlist-info {
+      flex: 1;
+    }
+    
+    .playlist-title {
+      font-weight: 500;
+      color: var(--light);
+      margin-bottom: 2px;
+    }
+    
+    .playlist-duration {
+      font-size: 0.8rem;
+      color: var(--accent);
+      opacity: 0.7;
+    }
+    
+    .playlist-play {
+      opacity: 0;
+      transition: var(--transition);
+    }
+    
+    .playlist-item:hover .playlist-play {
+      opacity: 1;
+    }
+    
+    .playlist-play i {
+      color: var(--primary);
+      font-size: 0.9rem;
+    }
+    
+    .player-controls {
+      margin-top: 20px;
+    }
+    
+    .progress-container {
+      margin-bottom: 20px;
+    }
+    
+    .progress-bar {
+      width: 100%;
+      height: 6px;
+      background: var(--glass-light);
+      border-radius: 3px;
+      cursor: pointer;
+      position: relative;
+      margin-bottom: 8px;
+    }
+    
+    .progress {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 3px;
+      transition: width 0.1s linear;
+    }
+    
+    .time-display {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--light);
+      opacity: 0.7;
+    }
+    
+    .control-buttons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+    
+    .control-btn {
+      background: var(--glass);
+      border: 1px solid var(--glass-light);
+      color: var(--light);
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 1rem;
+    }
+    
+    .control-btn:hover {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      transform: scale(1.1);
+      box-shadow: 0 5px 15px rgba(108, 99, 255, 0.3);
+    }
+    
+    .play-btn {
+      width: 55px;
+      height: 55px;
+      font-size: 1.2rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+    }
+    
+    .volume-control {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .volume-slider {
+      width: 80px;
+      opacity: 0;
+      transition: var(--transition);
+    }
+    
+    .volume-control:hover .volume-slider {
+      opacity: 1;
+    }
+    
+    .volume-range {
+      width: 100%;
+      height: 4px;
+      background: var(--glass-light);
+      border-radius: 2px;
+      outline: none;
+      -webkit-appearance: none;
+    }
+    
+    .volume-range::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--primary);
+      cursor: pointer;
+    }
+    
+    /* Responsive Audio Player */
+    @media (max-width: 968px) {
+      .video-audio-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+      
+      .audio-player {
+        padding: 25px;
+      }
+      
+      .control-buttons {
+        gap: 15px;
+      }
+      
+      .control-btn {
+        width: 40px;
+        height: 40px;
+      }
+      
+      .play-btn {
+        width: 50px;
+        height: 50px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .audio-player-container h2 {
+        font-size: 2rem;
+      }
+      
+      .audio-player {
+        padding: 20px;
+      }
+      
+      .playlist-item {
+        padding: 10px 12px;
+      }
+      
+      .control-buttons {
+        gap: 10px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1413,14 +1710,218 @@
 </section>
 
 <section class="temoignages">
-  <h2>Témoignages</h2>
-  <div class="temoignages-carousel">
-    <div class="temoignage">
-      <div class="temoignage-text">
-        "JS Multimédias a créé un site internet exceptionnel pour mon entreprise. Leur professionnalisme et leur réactivité ont dépassé toutes mes attentes."
+  <h2>Témoignages Clients</h2>
+  <div class="temoignages-grid">
+    <!-- Jérémy R. -->
+    <div class="temoignage-card">
+      <div class="temoignage-header">
+        <div class="client-avatar">
+          <i class="fas fa-user-circle"></i>
+        </div>
+        <div class="client-info">
+          <div class="client-name">Jérémy R.</div>
+          <div class="review-date">posté le 28 mai 2025</div>
+        </div>
+        <div class="rating">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <span class="rating-text">5 étoiles sur 5</span>
+        </div>
       </div>
-      <div class="temoignage-author">Marie Dupont</div>
-      <div class="temoignage-role">Directrice Marketing, Entreprise ABC</div>
+      <div class="service-type">Graphisme - Création flyer - plaquette</div>
+      <div class="temoignage-text">
+        "En tant qu'homologue dans le domaine de l'informatique, je tiens à témoigner de l'excellent travail de Julie. J'ai été particulièrement impressionné par sa réactivité et la qualité irréprochable de ses interventions. C'est une professionnelle qui maîtrise son sujet avec brio, et les nombreux retours positifs que l'on entend sur elle sont amplement justifiés. Son sérieux, sa polyvalence et sa capacité à résoudre des problèmes complexes en font une ressource précieuse. Je recommande sans hésitation Julie pour toute mission informatique ! C'est vraiment un plaisir de collaborer ou de croiser le chemin de professionnels comme Julie"
+      </div>
+      <div class="client-tag">
+        <i class="fas fa-award"></i>
+        Expert dans son domaine
+      </div>
+    </div>
+
+    <!-- Maurice M. -->
+    <div class="temoignage-card">
+      <div class="temoignage-header">
+        <div class="client-avatar">
+          <i class="fas fa-user-circle"></i>
+        </div>
+        <div class="client-info">
+          <div class="client-name">Maurice M.</div>
+          <div class="review-date">posté le 07 janv. 2025</div>
+        </div>
+        <div class="rating">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <span class="rating-text">5 étoiles sur 5</span>
+        </div>
+      </div>
+      <div class="service-type">Dépannage smartphone - hifi - video - photo</div>
+      <div class="temoignage-text">
+        "Julie est très ponctuelle C'est 'un vrai couteau suisse' du dépannage informatique !! Très à l'écoute Très bons diagnostics À recommander sans modération XXL Merci énormément Maurice"
+      </div>
+      <div class="client-tag">
+        <i class="fas fa-bolt"></i>
+        Super réactif
+      </div>
+    </div>
+
+    <!-- Tissame B. -->
+    <div class="temoignage-card">
+      <div class="temoignage-header">
+        <div class="client-avatar">
+          <i class="fas fa-user-circle"></i>
+        </div>
+        <div class="client-info">
+          <div class="client-name">Tissame B.</div>
+          <div class="review-date">posté le 16 nov. 2023</div>
+        </div>
+        <div class="rating">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <span class="rating-text">5 étoiles sur 5</span>
+        </div>
+      </div>
+      <div class="service-type">Montage photo video</div>
+      <div class="temoignage-text">
+        "Julie est à l'écoute et très arrangeante s'adapte à notre demande et fait de son mieux pour nous satisfaire"
+      </div>
+    </div>
+
+    <!-- Dominique W. -->
+    <div class="temoignage-card">
+      <div class="temoignage-header">
+        <div class="client-avatar">
+          <i class="fas fa-user-circle"></i>
+        </div>
+        <div class="client-info">
+          <div class="client-name">Dominique W.</div>
+          <div class="review-date">posté le 13 avr. 2023</div>
+        </div>
+        <div class="rating">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <span class="rating-text">5 étoiles sur 5</span>
+        </div>
+      </div>
+      <div class="service-type">Dépannage informatique</div>
+      <div class="temoignage-text">
+        "Elle est dispo, n'a pas hésité à se déplacer. Le travail demandé a été effectué rapidement. Nous allons encore la solliciter."
+      </div>
+    </div>
+
+    <!-- Anne C. -->
+    <div class="temoignage-card">
+      <div class="temoignage-header">
+        <div class="client-avatar">
+          <i class="fas fa-user-circle"></i>
+        </div>
+        <div class="client-info">
+          <div class="client-name">Anne C.</div>
+          <div class="review-date">posté le 16 mars 2023</div>
+        </div>
+        <div class="rating">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <span class="rating-text">5 étoiles sur 5</span>
+        </div>
+      </div>
+      <div class="service-type">Dépannage informatique</div>
+      <div class="temoignage-text">
+        "Julie a été très réactive et très arrangeante. Elle est aimable, disponible et cherche des solutions."
+      </div>
+    </div>
+
+    <!-- Martine L. -->
+    <div class="temoignage-card">
+      <div class="temoignage-header">
+        <div class="client-avatar">
+          <i class="fas fa-user-circle"></i>
+        </div>
+        <div class="client-info">
+          <div class="client-name">Martine L.</div>
+          <div class="review-date">posté le 16 janv. 2023</div>
+        </div>
+        <div class="rating">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <span class="rating-text">5 étoiles sur 5</span>
+        </div>
+      </div>
+      <div class="service-type">Dépannage smartphone - hifi - video - photo</div>
+      <div class="temoignage-text">
+        "Julie, une jeune personne très sympathique a rapidement su trouver la panne. Je recommande"
+      </div>
+    </div>
+
+    <!-- Orlane W. -->
+    <div class="temoignage-card">
+      <div class="temoignage-header">
+        <div class="client-avatar">
+          <i class="fas fa-user-circle"></i>
+        </div>
+        <div class="client-info">
+          <div class="client-name">Orlane W.</div>
+          <div class="review-date">posté le 22 nov. 2021</div>
+        </div>
+        <div class="rating">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <span class="rating-text">5 étoiles sur 5</span>
+        </div>
+      </div>
+      <div class="service-type">Comptabilité</div>
+      <div class="temoignage-text">
+        "Julie est une personne extraordinaire ! Bienveillante et avec une joie de vivre débordante. Elle m'a beaucoup aidé concernant mon ordinateur et continue de m'envoyer des messages pour suivre l'avancée. Je recommande une personne comme Julie a tous."
+      </div>
+    </div>
+
+    <!-- Jacques J. -->
+    <div class="temoignage-card">
+      <div class="temoignage-header">
+        <div class="client-avatar">
+          <i class="fas fa-user-circle"></i>
+        </div>
+        <div class="client-info">
+          <div class="client-name">Jacques J.</div>
+          <div class="review-date">posté le 02 sept. 2025</div>
+        </div>
+        <div class="rating">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star" style="color: var(--glass-light);"></i>
+          <span class="rating-text">4 étoiles sur 5</span>
+        </div>
+      </div>
+      <div class="service-type">Dépannage informatique</div>
+      <div class="temoignage-text">
+        "très bonne prestation"
+      </div>
+      <div class="client-tag">
+        <i class="fas fa-tag"></i>
+        Excellent rapport qualité/prix
+      </div>
     </div>
   </div>
 </section>
@@ -1883,6 +2384,279 @@
     if (clientsSection) {
       clientObserver.observe(clientsSection);
     }
+  });
+</script>
+
+<script>
+  // Audio Player Functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    // Audio player elements
+    const audioPlayer = {
+      audio: new Audio(),
+      currentTrack: 0,
+      isPlaying: false,
+      playlist: document.querySelectorAll('.playlist-item'),
+      playBtn: document.querySelector('.play-btn'),
+      prevBtn: document.querySelector('.prev-btn'),
+      nextBtn: document.querySelector('.next-btn'),
+      volumeBtn: document.querySelector('.volume-btn'),
+      volumeRange: document.querySelector('.volume-range'),
+      progressBar: document.querySelector('.progress'),
+      currentTimeEl: document.querySelector('.current-time'),
+      durationEl: document.querySelector('.duration'),
+      trackTitle: document.querySelector('.track-title'),
+      trackArtist: document.querySelector('.track-artist')
+    };
+
+    // Initialize audio player
+    function initAudioPlayer() {
+      // Set initial volume
+      audioPlayer.audio.volume = audioPlayer.volumeRange.value / 100;
+      
+      // Event listeners for controls
+      audioPlayer.playBtn.addEventListener('click', togglePlay);
+      audioPlayer.prevBtn.addEventListener('click', playPrevious);
+      audioPlayer.nextBtn.addEventListener('click', playNext);
+      audioPlayer.volumeRange.addEventListener('input', updateVolume);
+      
+      // Progress bar click to seek
+      document.querySelector('.progress-bar').addEventListener('click', seekAudio);
+      
+      // Audio events
+      audioPlayer.audio.addEventListener('loadedmetadata', updateDuration);
+      audioPlayer.audio.addEventListener('timeupdate', updateProgress);
+      audioPlayer.audio.addEventListener('ended', playNext);
+      
+      // Playlist item clicks
+      audioPlayer.playlist.forEach((item, index) => {
+        item.addEventListener('click', () => playTrack(index));
+      });
+      
+      // Load first track
+      loadTrack(0);
+    }
+
+    // Load a track
+    function loadTrack(trackIndex) {
+      const track = audioPlayer.playlist[trackIndex];
+      if (!track) return;
+      
+      // Update active track in playlist
+      audioPlayer.playlist.forEach(item => item.classList.remove('active'));
+      track.classList.add('active');
+      
+      // Update current track info
+      audioPlayer.currentTrack = trackIndex;
+      audioPlayer.trackTitle.textContent = track.querySelector('.playlist-title').textContent;
+      audioPlayer.trackArtist.textContent = 'JS Multimédias';
+      
+      // Load audio source
+      const audioSrc = track.getAttribute('data-src');
+      if (audioSrc) {
+        audioPlayer.audio.src = audioSrc;
+        audioPlayer.audio.load();
+      }
+    }
+
+    // Play a specific track
+    function playTrack(trackIndex) {
+      if (trackIndex === audioPlayer.currentTrack && audioPlayer.isPlaying) {
+        togglePlay();
+        return;
+      }
+      
+      loadTrack(trackIndex);
+      playAudio();
+    }
+
+    // Toggle play/pause
+    function togglePlay() {
+      if (audioPlayer.isPlaying) {
+        pauseAudio();
+      } else {
+        playAudio();
+      }
+    }
+
+    // Play audio
+    function playAudio() {
+      audioPlayer.audio.play()
+        .then(() => {
+          audioPlayer.isPlaying = true;
+          audioPlayer.playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        })
+        .catch(error => {
+          console.error('Error playing audio:', error);
+          // Show user-friendly error message
+          alert('Impossible de lire l\'audio. Vérifiez votre connexion internet ou réessayez plus tard.');
+        });
+    }
+
+    // Pause audio
+    function pauseAudio() {
+      audioPlayer.audio.pause();
+      audioPlayer.isPlaying = false;
+      audioPlayer.playBtn.innerHTML = '<i class="fas fa-play"></i>';
+    }
+
+    // Play previous track
+    function playPrevious() {
+      let newTrack = audioPlayer.currentTrack - 1;
+      if (newTrack < 0) {
+        newTrack = audioPlayer.playlist.length - 1;
+      }
+      playTrack(newTrack);
+    }
+
+    // Play next track
+    function playNext() {
+      let newTrack = audioPlayer.currentTrack + 1;
+      if (newTrack >= audioPlayer.playlist.length) {
+        newTrack = 0;
+      }
+      playTrack(newTrack);
+    }
+
+    // Update volume
+    function updateVolume() {
+      const volume = audioPlayer.volumeRange.value / 100;
+      audioPlayer.audio.volume = volume;
+      
+      // Update volume icon based on level
+      const volumeIcon = audioPlayer.volumeBtn.querySelector('i');
+      if (volume === 0) {
+        volumeIcon.className = 'fas fa-volume-mute';
+      } else if (volume < 0.5) {
+        volumeIcon.className = 'fas fa-volume-down';
+      } else {
+        volumeIcon.className = 'fas fa-volume-up';
+      }
+    }
+
+    // Update progress bar
+    function updateProgress() {
+      const { currentTime, duration } = audioPlayer.audio;
+      const progressPercent = (currentTime / duration) * 100;
+      
+      audioPlayer.progressBar.style.width = `${progressPercent}%`;
+      audioPlayer.currentTimeEl.textContent = formatTime(currentTime);
+    }
+
+    // Update duration display
+    function updateDuration() {
+      audioPlayer.durationEl.textContent = formatTime(audioPlayer.audio.duration);
+      
+      // Update playlist duration
+      const currentPlaylistItem = audioPlayer.playlist[audioPlayer.currentTrack];
+      if (currentPlaylistItem) {
+        currentPlaylistItem.querySelector('.playlist-duration').textContent =
+          formatTime(audioPlayer.audio.duration);
+      }
+    }
+
+    // Seek audio on progress bar click
+    function seekAudio(e) {
+      const progressBar = e.currentTarget;
+      const clickPosition = e.offsetX;
+      const progressBarWidth = progressBar.offsetWidth;
+      const seekTime = (clickPosition / progressBarWidth) * audioPlayer.audio.duration;
+      
+      audioPlayer.audio.currentTime = seekTime;
+    }
+
+    // Format time (seconds to MM:SS)
+    function formatTime(seconds) {
+      if (isNaN(seconds)) return '0:00';
+      
+      const minutes = Math.floor(seconds / 60);
+      const remainingSeconds = Math.floor(seconds % 60);
+      return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+    }
+
+    // Initialize the audio player
+    initAudioPlayer();
+  });
+</script>
+
+</body>
+</html>
+
+    // Play previous track
+    function playPrevious() {
+      let newTrack = audioPlayer.currentTrack - 1;
+      if (newTrack < 0) {
+        newTrack = audioPlayer.playlist.length - 1;
+      }
+      playTrack(newTrack);
+    }
+
+    // Play next track
+    function playNext() {
+      let newTrack = audioPlayer.currentTrack + 1;
+      if (newTrack >= audioPlayer.playlist.length) {
+        newTrack = 0;
+      }
+      playTrack(newTrack);
+    }
+
+    // Update volume
+    function updateVolume() {
+      const volume = audioPlayer.volumeRange.value / 100;
+      audioPlayer.audio.volume = volume;
+      
+      // Update volume icon based on level
+      const volumeIcon = audioPlayer.volumeBtn.querySelector('i');
+      if (volume === 0) {
+        volumeIcon.className = 'fas fa-volume-mute';
+      } else if (volume < 0.5) {
+        volumeIcon.className = 'fas fa-volume-down';
+      } else {
+        volumeIcon.className = 'fas fa-volume-up';
+      }
+    }
+
+    // Update progress bar
+    function updateProgress() {
+      const { currentTime, duration } = audioPlayer.audio;
+      const progressPercent = (currentTime / duration) * 100;
+      
+      audioPlayer.progressBar.style.width = `${progressPercent}%`;
+      audioPlayer.currentTimeEl.textContent = formatTime(currentTime);
+    }
+
+    // Update duration display
+    function updateDuration() {
+      audioPlayer.durationEl.textContent = formatTime(audioPlayer.audio.duration);
+      
+      // Update playlist duration
+      const currentPlaylistItem = audioPlayer.playlist[audioPlayer.currentTrack];
+      if (currentPlaylistItem) {
+        currentPlaylistItem.querySelector('.playlist-duration').textContent =
+          formatTime(audioPlayer.audio.duration);
+      }
+    }
+
+    // Seek audio on progress bar click
+    function seekAudio(e) {
+      const progressBar = e.currentTarget;
+      const clickPosition = e.offsetX;
+      const progressBarWidth = progressBar.offsetWidth;
+      const seekTime = (clickPosition / progressBarWidth) * audioPlayer.audio.duration;
+      
+      audioPlayer.audio.currentTime = seekTime;
+    }
+
+    // Format time (seconds to MM:SS)
+    function formatTime(seconds) {
+      if (isNaN(seconds)) return '0:00';
+      
+      const minutes = Math.floor(seconds / 60);
+      const remainingSeconds = Math.floor(seconds % 60);
+      return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+    }
+
+    // Initialize the audio player
+    initAudioPlayer();
   });
 </script>
 
