@@ -530,6 +530,17 @@
       opacity: 0.8;
       margin-left: 8px;
     }
+    .client-name {
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: var(--light);
+      margin-bottom: 5px;
+    }
+    .review-date {
+      font-size: 0.8rem;
+      color: var(--accent);
+      opacity: 0.8;
+    }
     .service-type {
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       -webkit-background-clip: text;
@@ -861,6 +872,10 @@
     .video-container {
       max-width: 1000px;
       margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
     .video-section h2 {
       font-size: 2.5rem;
@@ -2033,9 +2048,12 @@
     
     .multimedia-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
       gap: 40px;
-      align-items: start;
+      align-items: center;
+      justify-items: center;
+      max-width: 800px;
+      margin: 0 auto;
     }
     
     .media-section {
@@ -2099,6 +2117,8 @@
       overflow: hidden;
       box-shadow: 0 15px 30px rgba(0,0,0,0.3);
       margin-bottom: 20px;
+      width: 100%;
+      max-width: 800px;
     }
     
     .promo-video {
@@ -2124,6 +2144,9 @@
       border-radius: 15px;
       padding: 25px;
       border: 1px solid rgba(255,255,255,0.1);
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
     }
     
     .now-playing-display {
@@ -2168,7 +2191,7 @@
       opacity: 0.8;
     }
     
-    .audio-controls {
+    .control-buttons {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -2466,129 +2489,22 @@
   </div>
 </section>
 
-<section class="multimedia-section" id="multimedia">
-  <div class="multimedia-container">
-    <h2 class="fade-in">Découvrez mon univers créatif</h2>
-    <p class="multimedia-subtitle fade-in delay-1">Explorez mes compétences en production multimédia à travers mes créations vidéo et audio</p>
-    
-    <div class="multimedia-grid">
-      <!-- Video Player Section -->
-      <div class="media-section video-section fade-in delay-2">
-        <div class="media-header">
-          <i class="fas fa-play-circle"></i>
-          <h3>Vidéo Présentation</h3>
-        </div>
-        <div class="video-container">
-          <video controls autoplay muted loop class="promo-video" poster="images/video-poster.jpg" loading="lazy">
-            <source src="video/vid2.webm" type="video/webm">
-            <source src="video/vid2.mp4" type="video/mp4">
-            Votre navigateur ne supporte pas la lecture de vidéos.
-          </video>
-        </div>
-        <div class="media-description">
-          <p>Découvrez mon approche créative et mon expertise en production vidéo à travers cette présentation.</p>
-        </div>
-      </div>
-      
-      <!-- Audio Player Section -->
-      <div class="media-section audio-section fade-in delay-3">
-        <div class="media-header">
-          <i class="fas fa-music"></i>
-          <h3>Mes Créations Audio</h3>
-        </div>
-        <div class="audio-player-container">
-          <!-- Now Playing Display -->
-          <div class="now-playing-display">
-            <div class="track-cover">
-              <i class="fas fa-headphones"></i>
-            </div>
-            <div class="track-info">
-              <div class="track-title">Sélectionnez une piste</div>
-              <div class="track-artist">JS Multimédias</div>
-            </div>
-          </div>
-          
-          <!-- Progress Bar -->
-          <div class="progress-container">
-            <div class="progress-bar">
-              <div class="progress"></div>
-            </div>
-            <div class="time-display">
-              <span class="current-time">0:00</span>
-              <span class="duration">0:00</span>
-            </div>
-          </div>
-          
-          <!-- Control Buttons -->
-          <div class="control-buttons">
-            <button class="control-btn prev-btn" title="Précédent">
-              <i class="fas fa-step-backward"></i>
-            </button>
-            <button class="control-btn play-btn" title="Lecture">
-              <i class="fas fa-play"></i>
-            </button>
-            <button class="control-btn next-btn" title="Suivant">
-              <i class="fas fa-step-forward"></i>
-            </button>
-            <div class="volume-control">
-              <button class="control-btn volume-btn" title="Volume">
-                <i class="fas fa-volume-up"></i>
-              </button>
-              <input type="range" class="volume-range" min="0" max="100" value="80" title="Volume">
-            </div>
-          </div>
-          
-          <!-- Playlist -->
-          <div class="playlist">
-            <div class="playlist-header">
-              <h4>Playlist</h4>
-              <span class="track-count">3 pistes</span>
-            </div>
-            <div class="playlist-items">
-              <div class="playlist-item active" data-src="https://media.jsmultimedias34.com/audios/dans%20le%20virtuel.opus">
-                <div class="playlist-number">1</div>
-                <div class="playlist-info">
-                  <div class="playlist-title">Dans le virtuel</div>
-                  <div class="playlist-duration">--:--</div>
-                </div>
-                <div class="playlist-play">
-                  <i class="fas fa-play"></i>
-                </div>
-              </div>
-              <div class="playlist-item" data-src="https://media.jsmultimedias34.com/audios/la%20confiance%20est%20la.opus">
-                <div class="playlist-number">2</div>
-                <div class="playlist-info">
-                  <div class="playlist-title">La confiance est là</div>
-                  <div class="playlist-duration">--:--</div>
-                </div>
-                <div class="playlist-play">
-                  <i class="fas fa-play"></i>
-                </div>
-              </div>
-              <div class="playlist-item" data-src="https://media.jsmultimedias34.com/audios/js%20dans%20le%20block.opus">
-                <div class="playlist-number">3</div>
-                <div class="playlist-info">
-                  <div class="playlist-title">JS dans le block</div>
-                  <div class="playlist-duration">--:--</div>
-                </div>
-                <div class="playlist-play">
-                  <i class="fas fa-play"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="media-description">
-          <p>Écoutez mes compositions audio originales, créées avec passion et expertise technique.</p>
-        </div>
-      </div>
-    </div>
+<!-- Video Presentation Section -->
+<section class="video-section" id="video-presentation">
+  <div class="video-container">
+    <h2>Découvrez Mon Univers</h2>
+    <video controls autoplay muted loop class="promo-video" poster="images/video-poster.jpg" loading="lazy">
+      <source src="video/vid2.webm" type="video/webm">
+      <source src="video/vid2.mp4" type="video/mp4">
+      Votre navigateur ne supporte pas la lecture de vidéos.
+    </video>
+  
   </div>
 </section>
 
 <section class="services-detailed" id="services">
   <h2>Mes Services</h2>
-  <p>Découvrez notre gamme complète de services adaptés à vos besoins</p>
+
   
   <div class="service-detail">
     <div class="service-image">
@@ -2662,16 +2578,7 @@
 
 
 
-<section class="partenaires">
-  <h2>Mes Clients</h2>
-  <div class="carousel-container">
-    <div class="carousel-track">
-      <div class="carousel-item" onclick="openImageModal('images/avis1.jpg', 'BGE')"><img src="images/avis1.jpg" alt="BGE"></div>
-      <div class="carousel-item" onclick="openImageModal('images/avis2.jpg', 'Banque Partenaire')"><img src="images/avis2.jpg" alt="Banque Partenaire"></div>
-      <div class="carousel-item" onclick="openImageModal('images/avis3.jpg', 'Partenaire 1')"><img src="images/avis3.jpg" alt="Partenaire 1"></div>
-       
-  </div>
-</section>
+
 
 <section class="temoignages">
   <h2>Témoignages Clients</h2>
@@ -3021,6 +2928,107 @@
     </div>
     <div class="client-item">
       <img src="images/coteboheme.png" alt="Côté Bohème" loading="lazy" width="180" height="80">
+    </div>
+  </div>
+</section>
+
+<!-- Audio Player Section -->
+<section class="multimedia-section" id="multimedia">
+  <div class="multimedia-container">
+    <h2 class="fade-in">Découvrez mon univers créatif</h2>
+    <p class="multimedia-subtitle fade-in delay-1">Explorez mes compétences en production multimédia à travers mes créations audio</p>
+    
+    <div class="multimedia-grid">
+      <!-- Audio Player Section -->
+      <div class="media-section audio-section fade-in delay-3">
+        <div class="media-header">
+          <i class="fas fa-music"></i>
+          <h3>Mes Créations Audio</h3>
+        </div>
+        <div class="audio-player-container">
+          <!-- Now Playing Display -->
+          <div class="now-playing-display">
+            <div class="track-cover">
+              <i class="fas fa-headphones"></i>
+            </div>
+            <div class="track-info">
+              <div class="track-title">Sélectionnez une piste</div>
+              <div class="track-artist">JS Multimédias</div>
+            </div>
+          </div>
+          
+          <!-- Progress Bar -->
+          <div class="progress-container">
+            <div class="progress-bar">
+              <div class="progress"></div>
+            </div>
+            <div class="time-display">
+              <span class="current-time">0:00</span>
+              <span class="duration">0:00</span>
+            </div>
+          </div>
+          
+          <!-- Control Buttons -->
+          <div class="control-buttons">
+            <button class="control-btn prev-btn" title="Précédent">
+              <i class="fas fa-step-backward"></i>
+            </button>
+            <button class="control-btn play-btn" title="Lecture">
+              <i class="fas fa-play"></i>
+            </button>
+            <button class="control-btn next-btn" title="Suivant">
+              <i class="fas fa-step-forward"></i>
+            </button>
+            <div class="volume-control">
+              <button class="control-btn volume-btn" title="Volume">
+                <i class="fas fa-volume-up"></i>
+              </button>
+              <input type="range" class="volume-range" min="0" max="100" value="80" title="Volume">
+            </div>
+          </div>
+          
+          <!-- Playlist -->
+          <div class="playlist">
+            <div class="playlist-header">
+              <h4>Playlist</h4>
+              <span class="track-count">3 pistes</span>
+            </div>
+            <div class="playlist-items">
+              <div class="playlist-item active" data-src="https://media.jsmultimedias34.com/audios/dans%20le%20virtuel.opus">
+                <div class="playlist-number">1</div>
+                <div class="playlist-info">
+                  <div class="playlist-title">Dans le virtuel</div>
+                  <div class="playlist-duration">--:--</div>
+                </div>
+                <div class="playlist-play">
+                  <i class="fas fa-play"></i>
+                </div>
+              </div>
+              <div class="playlist-item" data-src="https://media.jsmultimedias34.com/audios/la%20confiance%20est%20la.opus">
+                <div class="playlist-number">2</div>
+                <div class="playlist-info">
+                  <div class="playlist-title">La confiance est là</div>
+                  <div class="playlist-duration">--:--</div>
+                </div>
+                <div class="playlist-play">
+                  <i class="fas fa-play"></i>
+                </div>
+              </div>
+              <div class="playlist-item" data-src="https://media.jsmultimedias34.com/audios/js%20dans%20le%20block.opus">
+                <div class="playlist-number">3</div>
+                <div class="playlist-info">
+                  <div class="playlist-title">JS dans le block</div>
+                  <div class="playlist-duration">--:--</div>
+                </div>
+                <div class="playlist-play">
+                  <i class="fas fa-play"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+      </div>
     </div>
   </div>
 </section>
@@ -3559,311 +3567,301 @@
       return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
     }
 
-    // Initialize the audio player
-    initAudioPlayer();
-  });
-</script>
-
-</body>
-</html>
-
-    // Play previous track
-    function playPrevious() {
-      let newTrack = audioPlayer.currentTrack - 1;
-      if (newTrack < 0) {
-        newTrack = audioPlayer.playlist.length - 1;
-      }
-      playTrack(newTrack);
-    }
-
-    // Play next track
-    function playNext() {
-      let newTrack = audioPlayer.currentTrack + 1;
-      if (newTrack >= audioPlayer.playlist.length) {
-        newTrack = 0;
-      }
-      playTrack(newTrack);
-    }
-
-    // Update volume
-    function updateVolume() {
-      const volume = audioPlayer.volumeRange.value / 100;
-      audioPlayer.audio.volume = volume;
-      
-      // Update volume icon based on level
-      const volumeIcon = audioPlayer.volumeBtn.querySelector('i');
-      if (volume === 0) {
-        volumeIcon.className = 'fas fa-volume-mute';
-      } else if (volume < 0.5) {
-        volumeIcon.className = 'fas fa-volume-down';
-      } else {
-        volumeIcon.className = 'fas fa-volume-up';
-      }
-    }
-
-    // Update progress bar
-    function updateProgress() {
-      const { currentTime, duration } = audioPlayer.audio;
-      const progressPercent = (currentTime / duration) * 100;
-      
-      audioPlayer.progressBar.style.width = `${progressPercent}%`;
-      audioPlayer.currentTimeEl.textContent = formatTime(currentTime);
-    }
-
-    // Update duration display
-    function updateDuration() {
-      audioPlayer.durationEl.textContent = formatTime(audioPlayer.audio.duration);
-      
-      // Update playlist duration
-      const currentPlaylistItem = audioPlayer.playlist[audioPlayer.currentTrack];
-      if (currentPlaylistItem) {
-        currentPlaylistItem.querySelector('.playlist-duration').textContent =
-          formatTime(audioPlayer.audio.duration);
-      }
-    }
-
-    // Seek audio on progress bar click
-    function seekAudio(e) {
-      const progressBar = e.currentTarget;
-      const clickPosition = e.offsetX;
-      const progressBarWidth = progressBar.offsetWidth;
-      const seekTime = (clickPosition / progressBarWidth) * audioPlayer.audio.duration;
-      
-      audioPlayer.audio.currentTime = seekTime;
-    }
-
-    // Format time (seconds to MM:SS)
-    function formatTime(seconds) {
-      if (isNaN(seconds)) return '0:00';
-      
-      const minutes = Math.floor(seconds / 60);
-      const remainingSeconds = Math.floor(seconds % 60);
-      return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
-    }
-
-    // Initialize the audio player
-    initAudioPlayer();
   });
 
-  // Testimonial Carousel Functionality - Fixed Infinite Loop
-  document.addEventListener('DOMContentLoaded', function() {
-    const carouselTrack = document.querySelector('.testimonial-carousel-track');
-    const cards = document.querySelectorAll('.testimonial-card');
-    const prevBtn = document.querySelector('.carousel-btn.prev');
-    const nextBtn = document.querySelector('.carousel-btn.next');
-    const indicators = document.querySelectorAll('.carousel-indicator');
+  // Play previous track
+  function playPrevious() {
+    let newTrack = audioPlayer.currentTrack - 1;
+    if (newTrack < 0) {
+      newTrack = audioPlayer.playlist.length - 1;
+    }
+    playTrack(newTrack);
+  }
+
+  // Play next track
+  function playNext() {
+    let newTrack = audioPlayer.currentTrack + 1;
+    if (newTrack >= audioPlayer.playlist.length) {
+      newTrack = 0;
+    }
+    playTrack(newTrack);
+  }
+
+  // Update volume
+  function updateVolume() {
+    const volume = audioPlayer.volumeRange.value / 100;
+    audioPlayer.audio.volume = volume;
     
-    if (!carouselTrack || !cards.length) return;
-
-    let currentIndex = 0;
-    const totalCards = cards.length;
-    let cardWidth = 0;
-
-    // Initialize carousel
-    function initCarousel() {
-      calculateCardWidth();
-      updateCarousel();
-      updateIndicators();
-      startAutoPlay();
-      addCardAnimations();
+    // Update volume icon based on level
+    const volumeIcon = audioPlayer.volumeBtn.querySelector('i');
+    if (volume === 0) {
+      volumeIcon.className = 'fas fa-volume-mute';
+    } else if (volume < 0.5) {
+      volumeIcon.className = 'fas fa-volume-down';
+    } else {
+      volumeIcon.className = 'fas fa-volume-up';
     }
+  }
 
-    // Calculate card width dynamically
-    function calculateCardWidth() {
-      if (cards[0]) {
-        cardWidth = cards[0].offsetWidth + 30; // card width + gap
-      }
+  // Update progress bar
+  function updateProgress() {
+    const { currentTime, duration } = audioPlayer.audio;
+    const progressPercent = (currentTime / duration) * 100;
+    
+    audioPlayer.progressBar.style.width = `${progressPercent}%`;
+    audioPlayer.currentTimeEl.textContent = formatTime(currentTime);
+  }
+
+  // Update duration display
+  function updateDuration() {
+    audioPlayer.durationEl.textContent = formatTime(audioPlayer.audio.duration);
+    
+    // Update playlist duration
+    const currentPlaylistItem = audioPlayer.playlist[audioPlayer.currentTrack];
+    if (currentPlaylistItem) {
+      currentPlaylistItem.querySelector('.playlist-duration').textContent =
+        formatTime(audioPlayer.audio.duration);
     }
+  }
 
-    // Update carousel position
-    function updateCarousel() {
-      const offset = -currentIndex * cardWidth;
-      carouselTrack.style.transform = `translateX(${offset}px)`;
-      updateIndicators();
-      updateCardStates();
+  // Seek audio on progress bar click
+  function seekAudio(e) {
+    const progressBar = e.currentTarget;
+    const clickPosition = e.offsetX;
+    const progressBarWidth = progressBar.offsetWidth;
+    const seekTime = (clickPosition / progressBarWidth) * audioPlayer.audio.duration;
+    
+    audioPlayer.audio.currentTime = seekTime;
+  }
+
+  // Format time (seconds to MM:SS)
+  function formatTime(seconds) {
+    if (isNaN(seconds)) return '0:00';
+    
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = Math.floor(seconds % 60);
+    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+  }
+
+  // Initialize the audio player
+  initAudioPlayer();
+});
+
+// Testimonial Carousel Functionality - Fixed Infinite Loop
+document.addEventListener('DOMContentLoaded', function() {
+  const carouselTrack = document.querySelector('.testimonial-carousel-track');
+  const cards = document.querySelectorAll('.testimonial-card');
+  const prevBtn = document.querySelector('.carousel-btn.prev');
+  const nextBtn = document.querySelector('.carousel-btn.next');
+  const indicators = document.querySelectorAll('.carousel-indicator');
+  
+  if (!carouselTrack || !cards.length) return;
+
+  let currentIndex = 0;
+  const totalCards = cards.length;
+  let cardWidth = 0;
+
+  // Initialize carousel
+  function initCarousel() {
+    calculateCardWidth();
+    updateCarousel();
+    updateIndicators();
+    startAutoPlay();
+    addCardAnimations();
+  }
+
+  // Calculate card width dynamically
+  function calculateCardWidth() {
+    if (cards[0]) {
+      cardWidth = cards[0].offsetWidth + 30; // card width + gap
     }
+  }
 
-    // Update active indicator
-    function updateIndicators() {
-      indicators.forEach((indicator, index) => {
-        indicator.classList.toggle('active', index === currentIndex);
-      });
-    }
+  // Update carousel position
+  function updateCarousel() {
+    const offset = -currentIndex * cardWidth;
+    carouselTrack.style.transform = `translateX(${offset}px)`;
+    updateIndicators();
+    updateCardStates();
+  }
 
-    // Update card states (active/inactive)
-    function updateCardStates() {
-      cards.forEach((card, index) => {
-        const isActive = index === currentIndex;
-        card.classList.toggle('active', isActive);
-        card.classList.toggle('inactive', !isActive);
-        
-        // Add parallax effect for non-active cards
-        if (!isActive) {
-          const distance = Math.abs(index - currentIndex);
-          const opacity = Math.max(0.3, 1 - distance * 0.2);
-          const scale = Math.max(0.9, 1 - distance * 0.05);
-          card.style.opacity = opacity;
-          card.style.transform = `scale(${scale})`;
-        } else {
-          card.style.opacity = '1';
-          card.style.transform = 'scale(1)';
-        }
-      });
-    }
-
-    // Add entrance animations to cards
-    function addCardAnimations() {
-      cards.forEach((card, index) => {
-        card.style.animationDelay = `${index * 0.1}s`;
-        card.classList.add('animate-in');
-      });
-    }
-
-    // Go to specific slide
-    function goToSlide(index) {
-      currentIndex = index;
-      updateCarousel();
-    }
-
-    // Next slide with proper infinite loop
-    function nextSlide() {
-      currentIndex = (currentIndex + 1) % totalCards;
-      updateCarousel();
-    }
-
-    // Previous slide with proper infinite loop
-    function prevSlide() {
-      currentIndex = (currentIndex - 1 + totalCards) % totalCards;
-      updateCarousel();
-    }
-
-    // Auto-play functionality
-    let autoPlayInterval;
-    function startAutoPlay() {
-      autoPlayInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
-    }
-
-    function stopAutoPlay() {
-      clearInterval(autoPlayInterval);
-    }
-
-    // Enhanced button click effects
-    function addButtonEffects(button) {
-      button.addEventListener('click', function(event) {
-        // Add ripple effect
-        const ripple = document.createElement('span');
-        const rect = button.getBoundingClientRect();
-        const size = Math.max(rect.width, rect.height);
-        const x = event.clientX - rect.left - size / 2;
-        const y = event.clientY - rect.top - size / 2;
-        
-        ripple.style.cssText = `
-          position: absolute;
-          border-radius: 50%;
-          background: rgba(255, 255, 255, 0.6);
-          transform: scale(0);
-          animation: ripple 0.6s linear;
-          width: ${size}px;
-          height: ${size}px;
-          left: ${x}px;
-          top: ${y}px;
-        `;
-        
-        button.appendChild(ripple);
-        setTimeout(() => ripple.remove(), 600);
-        
-        stopAutoPlay();
-        if (button.classList.contains('next')) {
-          nextSlide();
-        } else {
-          prevSlide();
-        }
-        startAutoPlay();
-      });
-    }
-
-    // Event listeners
-    if (nextBtn) addButtonEffects(nextBtn);
-    if (prevBtn) addButtonEffects(prevBtn);
-
-    // Indicator clicks with enhanced feedback
+  // Update active indicator
+  function updateIndicators() {
     indicators.forEach((indicator, index) => {
-      indicator.addEventListener('click', function() {
-        // Add click animation
-        this.style.animation = 'pulse 0.3s ease';
-        setTimeout(() => this.style.animation = '', 300);
-        
-        stopAutoPlay();
-        goToSlide(index);
-        startAutoPlay();
-      });
+      indicator.classList.toggle('active', index === currentIndex);
     });
+  }
 
-    // Pause auto-play on hover
-    carouselTrack.addEventListener('mouseenter', stopAutoPlay);
-    carouselTrack.addEventListener('mouseleave', startAutoPlay);
-
-    // Enhanced touch/swipe support for mobile
-    let startX = 0;
-    let currentX = 0;
-    let isDragging = false;
-
-    carouselTrack.addEventListener('touchstart', (e) => {
-      startX = e.touches[0].clientX;
-      isDragging = true;
-      stopAutoPlay();
-      carouselTrack.style.transition = 'none'; // Disable transition during drag
-    });
-
-    carouselTrack.addEventListener('touchmove', (e) => {
-      if (!isDragging) return;
-      currentX = e.touches[0].clientX;
-      const diff = startX - currentX;
-      carouselTrack.style.transform = `translateX(${-currentIndex * cardWidth - diff}px)`;
-    });
-
-    carouselTrack.addEventListener('touchend', () => {
-      if (!isDragging) return;
-      isDragging = false;
-      carouselTrack.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+  // Update card states (active/inactive)
+  function updateCardStates() {
+    cards.forEach((card, index) => {
+      const isActive = index === currentIndex;
+      card.classList.toggle('active', isActive);
+      card.classList.toggle('inactive', !isActive);
       
-      const diff = startX - currentX;
-      const threshold = cardWidth / 4;
-      
-      if (diff > threshold) {
-        nextSlide();
-      } else if (diff < -threshold) {
-        prevSlide();
+      // Add parallax effect for non-active cards
+      if (!isActive) {
+        const distance = Math.abs(index - currentIndex);
+        const opacity = Math.max(0.3, 1 - distance * 0.2);
+        const scale = Math.max(0.9, 1 - distance * 0.05);
+        card.style.opacity = opacity;
+        card.style.transform = `scale(${scale})`;
       } else {
-        updateCarousel(); // Return to current position
+        card.style.opacity = '1';
+        card.style.transform = 'scale(1)';
       }
+    });
+  }
+
+  // Add entrance animations to cards
+  function addCardAnimations() {
+    cards.forEach((card, index) => {
+      card.style.animationDelay = `${index * 0.1}s`;
+      card.classList.add('animate-in');
+    });
+  }
+
+  // Go to specific slide
+  function goToSlide(index) {
+    currentIndex = index;
+    updateCarousel();
+  }
+
+  // Next slide with proper infinite loop
+  function nextSlide() {
+    currentIndex = (currentIndex + 1) % totalCards;
+    updateCarousel();
+  }
+
+  // Previous slide with proper infinite loop
+  function prevSlide() {
+    currentIndex = (currentIndex - 1 + totalCards) % totalCards;
+    updateCarousel();
+  }
+
+  // Auto-play functionality
+  let autoPlayInterval;
+  function startAutoPlay() {
+    autoPlayInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
+  }
+
+  function stopAutoPlay() {
+    clearInterval(autoPlayInterval);
+  }
+
+  // Enhanced button click effects
+  function addButtonEffects(button) {
+    button.addEventListener('click', function(event) {
+      // Add ripple effect
+      const ripple = document.createElement('span');
+      const rect = button.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      const x = event.clientX - rect.left - size / 2;
+      const y = event.clientY - rect.top - size / 2;
       
+      ripple.style.cssText = `
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.6);
+        transform: scale(0);
+        animation: ripple 0.6s linear;
+        width: ${size}px;
+        height: ${size}px;
+        left: ${x}px;
+        top: ${y}px;
+      `;
+      
+      button.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 600);
+      
+      stopAutoPlay();
+      if (button.classList.contains('next')) {
+        nextSlide();
+      } else {
+        prevSlide();
+      }
       startAutoPlay();
     });
+  }
 
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft') {
-        stopAutoPlay();
-        prevSlide();
-        startAutoPlay();
-      } else if (e.key === 'ArrowRight') {
-        stopAutoPlay();
-        nextSlide();
-        startAutoPlay();
-      }
-    });
+  // Event listeners
+  if (nextBtn) addButtonEffects(nextBtn);
+  if (prevBtn) addButtonEffects(prevBtn);
 
-    // Initialize on load
-    initCarousel();
-
-    // Handle window resize
-    window.addEventListener('resize', () => {
-      calculateCardWidth();
-      updateCarousel();
+  // Indicator clicks with enhanced feedback
+  indicators.forEach((indicator, index) => {
+    indicator.addEventListener('click', function() {
+      // Add click animation
+      this.style.animation = 'pulse 0.3s ease';
+      setTimeout(() => this.style.animation = '', 300);
+      
+      stopAutoPlay();
+      goToSlide(index);
+      startAutoPlay();
     });
   });
-</script>
 
-</body>
-</html>
+  // Pause auto-play on hover
+  carouselTrack.addEventListener('mouseenter', stopAutoPlay);
+  carouselTrack.addEventListener('mouseleave', startAutoPlay);
+
+  // Enhanced touch/swipe support for mobile
+  let startX = 0;
+  let currentX = 0;
+  let isDragging = false;
+
+  carouselTrack.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX;
+    isDragging = true;
+    stopAutoPlay();
+    carouselTrack.style.transition = 'none'; // Disable transition during drag
+  });
+
+  carouselTrack.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    currentX = e.touches[0].clientX;
+    const diff = startX - currentX;
+    carouselTrack.style.transform = `translateX(${-currentIndex * cardWidth - diff}px)`;
+  });
+
+  carouselTrack.addEventListener('touchend', () => {
+    if (!isDragging) return;
+    isDragging = false;
+    carouselTrack.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+    
+    const diff = startX - currentX;
+    const threshold = cardWidth / 4;
+    
+    if (diff > threshold) {
+      nextSlide();
+    } else if (diff < -threshold) {
+      prevSlide();
+    } else {
+      updateCarousel(); // Return to current position
+    }
+    
+    startAutoPlay();
+  });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') {
+      stopAutoPlay();
+      prevSlide();
+      startAutoPlay();
+    } else if (e.key === 'ArrowRight') {
+      stopAutoPlay();
+      nextSlide();
+      startAutoPlay();
+    }
+  });
+
+  // Initialize on load
+  initCarousel();
+
+  // Handle window resize
+  window.addEventListener('resize', () => {
+    calculateCardWidth();
+    updateCarousel();
+  });
+});
