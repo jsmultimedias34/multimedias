@@ -675,6 +675,63 @@
     .testimonial-carousel-track {
       transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
+    
+    /* Card states for parallax effect */
+    .testimonial-card.active {
+      z-index: 2;
+    }
+    .testimonial-card.inactive {
+      z-index: 1;
+    }
+    
+    /* Entrance animations */
+    .testimonial-card.animate-in {
+      animation: slideInUp 0.6s ease-out forwards;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    
+    /* Ripple effect for buttons */
+    @keyframes ripple {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+    
+    /* Pulse animation for indicators */
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+      100% { transform: scale(1); }
+    }
+    
+    /* Slide in animation */
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Enhanced responsive design */
+    @media (max-width: 768px) {
+      .testimonial-card {
+        min-width: 280px;
+      }
+      .carousel-controls {
+        gap: 20px;
+        margin-top: 30px;
+      }
+      .carousel-btn {
+        width: 40px;
+        height: 40px;
+      }
+    }
 
     /* Responsive Design */
     @media (max-width: 768px) {
@@ -1241,6 +1298,160 @@
       color: var(--light);
       margin-bottom: 10px;
     }
+
+    /* Audio Player Section */
+    .audio-section {
+      padding: 100px 20px;
+      background: linear-gradient(to bottom, #111122, var(--bg-darker));
+      text-align: center;
+    }
+    .audio-container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .audio-section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+      background: linear-gradient(135deg, var(--accent), var(--primary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .audio-player {
+      background: var(--glass);
+      border-radius: 20px;
+      padding: 30px;
+      border: 1px solid var(--glass-light);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .track-info {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+    .track-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--light);
+      margin-bottom: 5px;
+    }
+    .track-artist {
+      font-size: 1rem;
+      color: var(--accent);
+      opacity: 0.9;
+    }
+    .progress-container {
+      background: var(--glass-light);
+      border-radius: 10px;
+      height: 8px;
+      margin: 20px 0;
+      cursor: pointer;
+      position: relative;
+    }
+    .progress-bar {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 10px;
+      height: 100%;
+      width: 0%;
+      transition: width 0.1s ease;
+    }
+    .time-display {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      color: var(--light);
+      opacity: 0.8;
+      margin-bottom: 20px;
+    }
+    .player-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 25px;
+    }
+    .control-btn {
+      background: var(--glass-light);
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      color: var(--light);
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .control-btn:hover {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      transform: scale(1.1);
+    }
+    .play-btn {
+      width: 60px;
+      height: 60px;
+      font-size: 1.5rem;
+    }
+    .volume-control {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    .volume-slider {
+      flex: 1;
+      height: 6px;
+      background: var(--glass-light);
+      border-radius: 3px;
+      outline: none;
+      -webkit-appearance: none;
+    }
+    .volume-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--primary);
+      cursor: pointer;
+    }
+    .playlist {
+      margin-top: 30px;
+      text-align: left;
+    }
+    .playlist h3 {
+      color: var(--accent);
+      margin-bottom: 15px;
+      text-align: center;
+    }
+    .playlist-item {
+      background: var(--glass-light);
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: var(--transition);
+      border-left: 3px solid transparent;
+    }
+    .playlist-item:hover {
+      background: var(--glass);
+      border-left-color: var(--primary);
+    }
+    .playlist-item.active {
+      background: var(--glass);
+      border-left-color: var(--secondary);
+    }
+    .playlist-title {
+      font-weight: 600;
+      color: var(--light);
+      margin-bottom: 5px;
+    }
+    .playlist-duration {
+      font-size: 0.8rem;
+      color: var(--accent);
+      opacity: 0.8;
+    }
     .premium-desc {
       font-size: 1rem;
       opacity: 0.8;
@@ -1776,6 +1987,410 @@
         gap: 10px;
       }
     }
+    /* Multimedia Section Styles */
+    .multimedia-section {
+      padding: 100px 20px;
+      background: linear-gradient(135deg, #0d0d1a 0%, #111122 50%, #0a0a15 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .multimedia-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+    }
+    
+    .multimedia-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    
+    .multimedia-section h2 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, var(--accent), var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 30px rgba(108, 99, 255, 0.3);
+    }
+    
+    .multimedia-subtitle {
+      font-size: 1.2rem;
+      color: var(--light);
+      opacity: 0.9;
+      margin-bottom: 60px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .multimedia-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+    
+    .media-section {
+      background: var(--glass);
+      border-radius: 20px;
+      padding: 30px;
+      border: 1px solid var(--glass-light);
+      backdrop-filter: blur(20px);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .media-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--primary));
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+    }
+    
+    .media-section:hover {
+      transform: translateY(-10px);
+      background: var(--glass-light);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+    
+    .media-section:hover::before {
+      transform: scaleX(1);
+    }
+    
+    .media-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 25px;
+      text-align: left;
+    }
+    
+    .media-header i {
+      font-size: 2rem;
+      color: var(--accent);
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .media-header h3 {
+      font-size: 1.5rem;
+      color: var(--light);
+      margin: 0;
+    }
+    
+    .video-container {
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+      margin-bottom: 20px;
+    }
+    
+    .promo-video {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: var(--transition);
+    }
+    
+    .promo-video:hover {
+      transform: scale(1.02);
+    }
+    
+    .media-description {
+      text-align: left;
+      color: var(--light);
+      opacity: 0.9;
+      line-height: 1.6;
+    }
+    
+    .audio-player-container {
+      background: var(--glass-light);
+      border-radius: 15px;
+      padding: 25px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .now-playing-display {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 25px;
+      padding: 20px;
+      background: var(--glass);
+      border-radius: 10px;
+      border: 1px solid var(--glass-light);
+    }
+    
+    .track-cover {
+      width: 80px;
+      height: 80px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: white;
+      flex-shrink: 0;
+    }
+    
+    .track-info {
+      flex: 1;
+      text-align: left;
+    }
+    
+    .track-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--light);
+      margin-bottom: 5px;
+    }
+    
+    .track-artist {
+      font-size: 0.9rem;
+      color: var(--accent);
+      opacity: 0.8;
+    }
+    
+    .audio-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .audio-btn {
+      background: var(--glass);
+      border: 1px solid var(--glass-light);
+      color: var(--light);
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 1rem;
+    }
+    
+    .audio-btn:hover {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      transform: scale(1.1);
+      box-shadow: 0 5px 15px rgba(108, 99, 255, 0.3);
+    }
+    
+    .play-btn {
+      width: 55px;
+      height: 55px;
+      font-size: 1.2rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+    }
+    
+    .audio-progress {
+      margin-bottom: 20px;
+    }
+    
+    .progress-bar {
+      width: 100%;
+      height: 6px;
+      background: var(--glass-light);
+      border-radius: 3px;
+      cursor: pointer;
+      position: relative;
+      margin-bottom: 8px;
+    }
+    
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 3px;
+      transition: width 0.1s linear;
+    }
+    
+    .time-display {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--light);
+      opacity: 0.7;
+    }
+    
+    .playlist {
+      max-height: 200px;
+      overflow-y: auto;
+      margin-top: 20px;
+    }
+    
+    .playlist::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    .playlist::-webkit-scrollbar-track {
+      background: var(--glass-light);
+      border-radius: 3px;
+    }
+    
+    .playlist::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 3px;
+    }
+    
+    .playlist-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 12px 15px;
+      border-radius: 10px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: var(--transition);
+      background: var(--glass-light);
+    }
+    
+    .playlist-item:hover {
+      background: rgba(108, 99, 255, 0.1);
+      transform: translateX(5px);
+    }
+    
+    .playlist-item.active {
+      background: linear-gradient(135deg, rgba(108, 99, 255, 0.2), rgba(255, 60, 172, 0.1));
+      border-left: 3px solid var(--primary);
+    }
+    
+    .playlist-number {
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background: var(--glass);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--light);
+    }
+    
+    .playlist-item.active .playlist-number {
+      background: var(--primary);
+    }
+    
+    .playlist-info {
+      flex: 1;
+      text-align: left;
+    }
+    
+    .playlist-title {
+      font-weight: 500;
+      color: var(--light);
+      margin-bottom: 2px;
+    }
+    
+    .playlist-duration {
+      font-size: 0.8rem;
+      color: var(--accent);
+      opacity: 0.7;
+    }
+    
+    .playlist-play {
+      opacity: 0;
+      transition: var(--transition);
+    }
+    
+    .playlist-item:hover .playlist-play {
+      opacity: 1;
+    }
+    
+    .playlist-play i {
+      color: var(--primary);
+      font-size: 0.9rem;
+    }
+    
+    /* Responsive Multimedia Section */
+    @media (max-width: 968px) {
+      .multimedia-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+      
+      .multimedia-section h2 {
+        font-size: 2.5rem;
+      }
+      
+      .media-section {
+        padding: 25px;
+      }
+      
+      .now-playing-display {
+        padding: 15px;
+      }
+      
+      .track-cover {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .multimedia-section {
+        padding: 80px 20px;
+      }
+      
+      .multimedia-section h2 {
+        font-size: 2rem;
+      }
+      
+      .multimedia-subtitle {
+        font-size: 1rem;
+      }
+      
+      .media-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+      }
+      
+      .media-header h3 {
+        font-size: 1.3rem;
+      }
+      
+      .audio-controls {
+        gap: 10px;
+      }
+      
+      .audio-btn {
+        width: 40px;
+        height: 40px;
+      }
+      
+      .play-btn {
+        width: 50px;
+        height: 50px;
+      }
+      
+      .playlist-item {
+        padding: 10px 12px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1851,14 +2466,123 @@
   </div>
 </section>
 
-<section class="video-section">
-  <div class="video-container">
-    <h2>Découvrez mon univers</h2>
-    <video controls autoplay muted loop class="promo-video" poster="images/video-poster.jpg" loading="lazy">
-      <source src="video/vid2.webm" type="video/webm">
-      <source src="video/vid2.mp4" type="video/mp4">
-      Votre navigateur ne supporte pas la lecture de vidéos.
-    </video>
+<section class="multimedia-section" id="multimedia">
+  <div class="multimedia-container">
+    <h2 class="fade-in">Découvrez mon univers créatif</h2>
+    <p class="multimedia-subtitle fade-in delay-1">Explorez mes compétences en production multimédia à travers mes créations vidéo et audio</p>
+    
+    <div class="multimedia-grid">
+      <!-- Video Player Section -->
+      <div class="media-section video-section fade-in delay-2">
+        <div class="media-header">
+          <i class="fas fa-play-circle"></i>
+          <h3>Vidéo Présentation</h3>
+        </div>
+        <div class="video-container">
+          <video controls autoplay muted loop class="promo-video" poster="images/video-poster.jpg" loading="lazy">
+            <source src="video/vid2.webm" type="video/webm">
+            <source src="video/vid2.mp4" type="video/mp4">
+            Votre navigateur ne supporte pas la lecture de vidéos.
+          </video>
+        </div>
+        <div class="media-description">
+          <p>Découvrez mon approche créative et mon expertise en production vidéo à travers cette présentation.</p>
+        </div>
+      </div>
+      
+      <!-- Audio Player Section -->
+      <div class="media-section audio-section fade-in delay-3">
+        <div class="media-header">
+          <i class="fas fa-music"></i>
+          <h3>Mes Créations Audio</h3>
+        </div>
+        <div class="audio-player-container">
+          <!-- Now Playing Display -->
+          <div class="now-playing-display">
+            <div class="track-cover">
+              <i class="fas fa-headphones"></i>
+            </div>
+            <div class="track-info">
+              <div class="track-title">Sélectionnez une piste</div>
+              <div class="track-artist">JS Multimédias</div>
+            </div>
+          </div>
+          
+          <!-- Progress Bar -->
+          <div class="progress-container">
+            <div class="progress-bar">
+              <div class="progress"></div>
+            </div>
+            <div class="time-display">
+              <span class="current-time">0:00</span>
+              <span class="duration">0:00</span>
+            </div>
+          </div>
+          
+          <!-- Control Buttons -->
+          <div class="control-buttons">
+            <button class="control-btn prev-btn" title="Précédent">
+              <i class="fas fa-step-backward"></i>
+            </button>
+            <button class="control-btn play-btn" title="Lecture">
+              <i class="fas fa-play"></i>
+            </button>
+            <button class="control-btn next-btn" title="Suivant">
+              <i class="fas fa-step-forward"></i>
+            </button>
+            <div class="volume-control">
+              <button class="control-btn volume-btn" title="Volume">
+                <i class="fas fa-volume-up"></i>
+              </button>
+              <input type="range" class="volume-range" min="0" max="100" value="80" title="Volume">
+            </div>
+          </div>
+          
+          <!-- Playlist -->
+          <div class="playlist">
+            <div class="playlist-header">
+              <h4>Playlist</h4>
+              <span class="track-count">3 pistes</span>
+            </div>
+            <div class="playlist-items">
+              <div class="playlist-item active" data-src="https://media.jsmultimedias34.com/audios/dans%20le%20virtuel.opus">
+                <div class="playlist-number">1</div>
+                <div class="playlist-info">
+                  <div class="playlist-title">Dans le virtuel</div>
+                  <div class="playlist-duration">--:--</div>
+                </div>
+                <div class="playlist-play">
+                  <i class="fas fa-play"></i>
+                </div>
+              </div>
+              <div class="playlist-item" data-src="https://media.jsmultimedias34.com/audios/la%20confiance%20est%20la.opus">
+                <div class="playlist-number">2</div>
+                <div class="playlist-info">
+                  <div class="playlist-title">La confiance est là</div>
+                  <div class="playlist-duration">--:--</div>
+                </div>
+                <div class="playlist-play">
+                  <i class="fas fa-play"></i>
+                </div>
+              </div>
+              <div class="playlist-item" data-src="https://media.jsmultimedias34.com/audios/js%20dans%20le%20block.opus">
+                <div class="playlist-number">3</div>
+                <div class="playlist-info">
+                  <div class="playlist-title">JS dans le block</div>
+                  <div class="playlist-duration">--:--</div>
+                </div>
+                <div class="playlist-play">
+                  <i class="fas fa-play"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="media-description">
+          <p>Écoutez mes compositions audio originales, créées avec passion et expertise technique.</p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -2921,7 +3645,7 @@
     initAudioPlayer();
   });
 
-  // Testimonial Carousel Functionality
+  // Testimonial Carousel Functionality - Fixed Infinite Loop
   document.addEventListener('DOMContentLoaded', function() {
     const carouselTrack = document.querySelector('.testimonial-carousel-track');
     const cards = document.querySelectorAll('.testimonial-card');
@@ -2932,15 +3656,23 @@
     if (!carouselTrack || !cards.length) return;
 
     let currentIndex = 0;
-    const cardWidth = cards[0].offsetWidth + 30; // card width + gap
     const totalCards = cards.length;
+    let cardWidth = 0;
 
     // Initialize carousel
     function initCarousel() {
+      calculateCardWidth();
       updateCarousel();
       updateIndicators();
       startAutoPlay();
       addCardAnimations();
+    }
+
+    // Calculate card width dynamically
+    function calculateCardWidth() {
+      if (cards[0]) {
+        cardWidth = cards[0].offsetWidth + 30; // card width + gap
+      }
     }
 
     // Update carousel position
@@ -2989,27 +3721,19 @@
 
     // Go to specific slide
     function goToSlide(index) {
-      currentIndex = Math.max(0, Math.min(index, totalCards - 1));
+      currentIndex = index;
       updateCarousel();
     }
 
-    // Next slide
+    // Next slide with proper infinite loop
     function nextSlide() {
-      if (currentIndex < totalCards - 1) {
-        currentIndex++;
-      } else {
-        currentIndex = 0; // Loop back to start
-      }
+      currentIndex = (currentIndex + 1) % totalCards;
       updateCarousel();
     }
 
-    // Previous slide
+    // Previous slide with proper infinite loop
     function prevSlide() {
-      if (currentIndex > 0) {
-        currentIndex--;
-      } else {
-        currentIndex = totalCards - 1; // Loop to end
-      }
+      currentIndex = (currentIndex - 1 + totalCards) % totalCards;
       updateCarousel();
     }
 
@@ -3025,7 +3749,7 @@
 
     // Enhanced button click effects
     function addButtonEffects(button) {
-      button.addEventListener('click', function() {
+      button.addEventListener('click', function(event) {
         // Add ripple effect
         const ripple = document.createElement('span');
         const rect = button.getBoundingClientRect();
@@ -3106,9 +3830,9 @@
       const diff = startX - currentX;
       const threshold = cardWidth / 4;
       
-      if (diff > threshold && currentIndex < totalCards - 1) {
+      if (diff > threshold) {
         nextSlide();
-      } else if (diff < -threshold && currentIndex > 0) {
+      } else if (diff < -threshold) {
         prevSlide();
       } else {
         updateCarousel(); // Return to current position
@@ -3135,10 +3859,8 @@
 
     // Handle window resize
     window.addEventListener('resize', () => {
-      const newCardWidth = cards[0].offsetWidth + 30;
-      if (newCardWidth !== cardWidth) {
-        updateCarousel();
-      }
+      calculateCardWidth();
+      updateCarousel();
     });
   });
 </script>
