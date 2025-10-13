@@ -108,10 +108,12 @@
       position: relative; overflow: hidden;
     }
     .hero::before {
-      content: ""; position: absolute; width: 200%; height: 200%;
+      content: ""; position: absolute; width: 100%; height: 100%;
       background: conic-gradient(from 180deg, var(--primary), var(--secondary), var(--accent), var(--primary));
       animation: spin 20s linear infinite;
-      top: -50%; left: -50%; opacity: .1;
+      top: 0; left: 0; opacity: .1;
+      border-radius: 50%;
+      transform-origin: center;
     }
     @keyframes spin { 100% { transform: rotate(360deg); } }
     .hero-content { 
