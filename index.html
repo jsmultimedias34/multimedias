@@ -686,6 +686,42 @@
     .testimonial-carousel-track {
       transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
+
+    /* Enhanced carousel controls */
+    .carousel-btn {
+      transition: all 0.3s ease;
+    }
+
+    .carousel-btn:hover:not(:disabled) {
+      transform: scale(1.1);
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .carousel-btn:disabled {
+      cursor: not-allowed;
+    }
+
+    /* Card hover highlight */
+    .testimonial-card.hover-highlight {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    /* Enhanced indicators */
+    .carousel-indicator {
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .carousel-indicator:hover {
+      transform: scale(1.2);
+    }
+
+    .carousel-indicator.active {
+      background: var(--accent-color);
+      transform: scale(1.1);
+    }
     
     /* Card states for parallax effect */
     .testimonial-card.active {
@@ -3514,69 +3550,134 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     let currentIndex = 0;
+    let isAnimating = false;
     const cardWidth = cards[0].offsetWidth + 30; // card width + gap
     const visibleCards = Math.min(3, cards.length); // Show 3 cards or less if fewer cards
+    let autoAdvance;
 
     // Set initial position
     updateCarousel();
 
-    // Event listeners
+    // Enhanced event listeners with smooth transitions
     prevBtn?.addEventListener('click', () => {
-      currentIndex = Math.max(0, currentIndex - 1);
-      updateCarousel();
+      if (!isAnimating) {
+        currentIndex = Math.max(0, currentIndex - 1);
+        updateCarousel();
+        resetAutoAdvance();
+      }
     });
 
     nextBtn?.addEventListener('click', () => {
-      currentIndex = Math.min(cards.length - visibleCards, currentIndex + 1);
-      updateCarousel();
+      if (!isAnimating) {
+        currentIndex = Math.min(cards.length - visibleCards, currentIndex + 1);
+        updateCarousel();
+        resetAutoAdvance();
+      }
     });
 
-    // Indicator clicks
+    // Enhanced indicator clicks with smooth transitions
     indicators.forEach((indicator, index) => {
       indicator.addEventListener('click', () => {
-        currentIndex = index;
-        updateCarousel();
+        if (!isAnimating) {
+          currentIndex = index;
+          updateCarousel();
+          resetAutoAdvance();
+        }
       });
     });
 
     function updateCarousel() {
+      isAnimating = true;
       const translateX = -currentIndex * cardWidth;
       track.style.transform = `translateX(${translateX}px)`;
       
-      // Update indicators
+      // Update indicators with smooth transitions
       indicators.forEach((indicator, index) => {
         indicator.classList.toggle('active', index === currentIndex);
       });
       
-      // Update button states
-      if (prevBtn) prevBtn.disabled = currentIndex === 0;
-      if (nextBtn) nextBtn.disabled = currentIndex >= cards.length - visibleCards;
+      // Update button states with visual feedback
+      if (prevBtn) {
+        prevBtn.disabled = currentIndex === 0;
+        prevBtn.style.opacity = currentIndex === 0 ? '0.5' : '1';
+      }
+      if (nextBtn) {
+        nextBtn.disabled = currentIndex >= cards.length - visibleCards;
+        nextBtn.style.opacity = currentIndex >= cards.length - visibleCards ? '0.5' : '1';
+      }
+
+      // Reset animation flag after transition completes
+      setTimeout(() => {
+        isAnimating = false;
+      }, 600); // Match CSS transition duration
     }
 
-    // Auto-advance carousel every 5 seconds
-    let autoAdvance = setInterval(() => {
-      if (currentIndex < cards.length - visibleCards) {
-        currentIndex++;
-      } else {
-        currentIndex = 0;
-      }
-      updateCarousel();
-    }, 5000);
-
-    // Pause auto-advance on hover
-    track.addEventListener('mouseenter', () => clearInterval(autoAdvance));
-    track.addEventListener('mouseleave', () => {
+    // Dynamic auto-advance system
+    function startAutoAdvance() {
       autoAdvance = setInterval(() => {
-        if (currentIndex < cards.length - visibleCards) {
-          currentIndex++;
-        } else {
-          currentIndex = 0;
+        if (!isAnimating) {
+          if (currentIndex < cards.length - visibleCards) {
+            currentIndex++;
+          } else {
+            currentIndex = 0;
+          }
+          updateCarousel();
         }
-        updateCarousel();
-      }, 5000);
+      }, 4000); // Slightly faster auto-advance for better engagement
+    }
+
+    function resetAutoAdvance() {
+      clearInterval(autoAdvance);
+      startAutoAdvance();
+    }
+
+    // Start auto-advance
+    startAutoAdvance();
+
+    // Enhanced hover behavior
+    track.addEventListener('mouseenter', () => {
+      clearInterval(autoAdvance);
+      // Add subtle hover effect to current card
+      cards[currentIndex]?.classList.add('hover-highlight');
     });
 
-    console.log('✅ Testimonial carousel initialized');
+    track.addEventListener('mouseleave', () => {
+      startAutoAdvance();
+      // Remove hover effect
+      cards[currentIndex]?.classList.remove('hover-highlight');
+    });
+
+    // Touch/swipe support for mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    track.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    track.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    });
+
+    function handleSwipe() {
+      const swipeThreshold = 50;
+      const swipeDistance = touchEndX - touchStartX;
+
+      if (Math.abs(swipeDistance) > swipeThreshold && !isAnimating) {
+        if (swipeDistance > 0) {
+          // Swipe right - go to previous
+          currentIndex = Math.max(0, currentIndex - 1);
+        } else {
+          // Swipe left - go to next
+          currentIndex = Math.min(cards.length - visibleCards, currentIndex + 1);
+        }
+        updateCarousel();
+        resetAutoAdvance();
+      }
+    }
+
+    console.log('✅ Enhanced testimonial carousel initialized');
   }
 
   // Initialize systems
