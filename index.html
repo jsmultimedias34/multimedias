@@ -3498,8 +3498,90 @@ document.addEventListener('DOMContentLoaded', function() {
     audioPlayer.audio.addEventListener('ended', playNext);
   }
 
+  // Testimonial Carousel System
+  function initTestimonialCarousel() {
+    console.log('🎠 Initializing testimonial carousel...');
+    
+    const track = document.getElementById('testimonialTrack');
+    const cards = document.querySelectorAll('.testimonial-card');
+    const prevBtn = document.querySelector('.carousel-btn.prev');
+    const nextBtn = document.querySelector('.carousel-btn.next');
+    const indicators = document.querySelectorAll('.carousel-indicator');
+    
+    if (!track || cards.length === 0) {
+      console.log('❌ Carousel elements not found');
+      return;
+    }
+
+    let currentIndex = 0;
+    const cardWidth = cards[0].offsetWidth + 30; // card width + gap
+    const visibleCards = Math.min(3, cards.length); // Show 3 cards or less if fewer cards
+
+    // Set initial position
+    updateCarousel();
+
+    // Event listeners
+    prevBtn?.addEventListener('click', () => {
+      currentIndex = Math.max(0, currentIndex - 1);
+      updateCarousel();
+    });
+
+    nextBtn?.addEventListener('click', () => {
+      currentIndex = Math.min(cards.length - visibleCards, currentIndex + 1);
+      updateCarousel();
+    });
+
+    // Indicator clicks
+    indicators.forEach((indicator, index) => {
+      indicator.addEventListener('click', () => {
+        currentIndex = index;
+        updateCarousel();
+      });
+    });
+
+    function updateCarousel() {
+      const translateX = -currentIndex * cardWidth;
+      track.style.transform = `translateX(${translateX}px)`;
+      
+      // Update indicators
+      indicators.forEach((indicator, index) => {
+        indicator.classList.toggle('active', index === currentIndex);
+      });
+      
+      // Update button states
+      if (prevBtn) prevBtn.disabled = currentIndex === 0;
+      if (nextBtn) nextBtn.disabled = currentIndex >= cards.length - visibleCards;
+    }
+
+    // Auto-advance carousel every 5 seconds
+    let autoAdvance = setInterval(() => {
+      if (currentIndex < cards.length - visibleCards) {
+        currentIndex++;
+      } else {
+        currentIndex = 0;
+      }
+      updateCarousel();
+    }, 5000);
+
+    // Pause auto-advance on hover
+    track.addEventListener('mouseenter', () => clearInterval(autoAdvance));
+    track.addEventListener('mouseleave', () => {
+      autoAdvance = setInterval(() => {
+        if (currentIndex < cards.length - visibleCards) {
+          currentIndex++;
+        } else {
+          currentIndex = 0;
+        }
+        updateCarousel();
+      }, 5000);
+    });
+
+    console.log('✅ Testimonial carousel initialized');
+  }
+
   // Initialize systems
   initImageLoading();
   initAudioPlayer();
+  initTestimonialCarousel();
 });
 </script>
