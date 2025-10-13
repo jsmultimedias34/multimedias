@@ -3188,9 +3188,8 @@
   });
 </script>
 
-<script>
   // Portfolio Filter Functionality
-  document.addEventListener('DOMContentLoaded', function() {
+  function initPortfolioFilter() {
     const filterButtons = document.querySelectorAll('.filter-btn');
     const portfolioItems = document.querySelectorAll('.portfolio-item');
     
@@ -3298,93 +3297,46 @@
     }
   });
 
-  // Image loading optimization for portfolio
-  document.addEventListener('DOMContentLoaded', function() {
-    const portfolioImages = document.querySelectorAll('.portfolio-img');
-    
-    portfolioImages.forEach(img => {
-      // Add loading lazy for better performance
-      img.loading = 'lazy';
-      
-      // Add error handling
-      img.onerror = function() {
-        this.style.display = 'none';
-        const overlay = this.closest('.portfolio-item').querySelector('.portfolio-overlay');
-        if (overlay) {
-          overlay.style.opacity = '1';
-          overlay.style.background = 'var(--glass)';
-        }
-      };
-    });
 
-    // Preload larger images for better modal experience
-    const modalImages = document.querySelectorAll('.carousel-item');
-    modalImages.forEach(item => {
-      const imgSrc = item.getAttribute('onclick').match(/'([^']+)'/)[1];
-      const img = new Image();
-      img.src = imgSrc;
-    });
-
-    // Optimisation du chargement des images clients
-    function loadClientImages() {
-      const clientItems = document.querySelectorAll('.client-item');
-      const images = document.querySelectorAll('.client-item img');
-      
-      // Marquer tous les items comme loading
-      clientItems.forEach(item => item.classList.add('loading'));
-      
-      // Créer un tableau de promesses pour le chargement
-      const imagePromises = Array.from(images).map(img => {
-        return new Promise((resolve) => {
-          if (img.complete) {
-            resolve();
-          } else {
-            img.addEventListener('load', resolve);
-            img.addEventListener('error', resolve); // Même en cas d'erreur, on continue
-          }
-        });
-      });
-      
-      // Attendre que toutes les images soient chargées
-      Promise.all(imagePromises).then(() => {
-        // Retirer l'état loading et afficher les images
-        clientItems.forEach(item => {
-          item.classList.remove('loading');
-          const img = item.querySelector('img');
-          if (img) {
-            img.classList.add('loaded');
-          }
-        });
-      });
-    }
-
-    // Charger les images clients quand la section devient visible
-    const observerOptions = {
-      root: null,
-      rootMargin: '100px',
-      threshold: 0.1
-    };
-
-    const clientObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          loadClientImages();
-          clientObserver.unobserve(entry.target);
-        }
-      });
-    }, observerOptions);
-
-    const clientsSection = document.getElementById('professionnels');
-    if (clientsSection) {
-      clientObserver.observe(clientsSection);
-    }
-  });
 </script>
 
 <script>
-  // Audio Player Functionality
-  document.addEventListener('DOMContentLoaded', function() {
-    // Audio player elements
+// Unified Initialization System (Fixed Duplicate Systems)
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('🎯 Initializing unified system...');
+
+  // Image Loading System
+  function initImageLoading() {
+    console.log('🖼️ Initializing image loading...');
+    
+    // Simple image loading with Intersection Observer
+    const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+    
+    if ('IntersectionObserver' in window) {
+      const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.dataset.src || img.src;
+            img.classList.remove('lazy');
+            imageObserver.unobserve(img);
+          }
+        });
+      });
+
+      lazyImages.forEach(img => imageObserver.observe(img));
+    } else {
+      // Fallback for browsers without IntersectionObserver
+      lazyImages.forEach(img => {
+        img.src = img.dataset.src || img.src;
+      });
+    }
+  }
+
+  // Audio Player System
+  function initAudioPlayer() {
+    console.log('🎵 Initializing audio player...');
+    
     const audioPlayer = {
       audio: new Audio(),
       currentTrack: 0,
@@ -3393,77 +3345,59 @@
       playBtn: document.querySelector('.play-btn'),
       prevBtn: document.querySelector('.prev-btn'),
       nextBtn: document.querySelector('.next-btn'),
-      volumeBtn: document.querySelector('.volume-btn'),
       volumeRange: document.querySelector('.volume-range'),
       progressBar: document.querySelector('.progress'),
       currentTimeEl: document.querySelector('.current-time'),
-      durationEl: document.querySelector('.duration'),
-      trackTitle: document.querySelector('.track-title'),
-      trackArtist: document.querySelector('.track-artist')
+      durationEl: document.querySelector('.duration')
     };
 
-    // Initialize audio player
-    function initAudioPlayer() {
-      // Set initial volume
-      audioPlayer.audio.volume = audioPlayer.volumeRange.value / 100;
-      
-      // Event listeners for controls
-      audioPlayer.playBtn.addEventListener('click', togglePlay);
-      audioPlayer.prevBtn.addEventListener('click', playPrevious);
-      audioPlayer.nextBtn.addEventListener('click', playNext);
-      audioPlayer.volumeRange.addEventListener('input', updateVolume);
-      
-      // Progress bar click to seek
-      document.querySelector('.progress-bar').addEventListener('click', seekAudio);
-      
-      // Audio events
-      audioPlayer.audio.addEventListener('loadedmetadata', updateDuration);
-      audioPlayer.audio.addEventListener('timeupdate', updateProgress);
-      audioPlayer.audio.addEventListener('ended', playNext);
-      
-      // Playlist item clicks
-      audioPlayer.playlist.forEach((item, index) => {
-        item.addEventListener('click', () => playTrack(index));
-      });
-      
-      // Load first track
-      loadTrack(0);
+    if (!audioPlayer.playBtn) {
+      console.warn('Audio player elements not found');
+      return;
     }
 
-    // Load a track
-    function loadTrack(trackIndex) {
+    // Set initial volume
+    audioPlayer.audio.volume = audioPlayer.volumeRange ? audioPlayer.volumeRange.value / 100 : 0.8;
+    
+    // Event listeners
+    audioPlayer.playBtn.addEventListener('click', togglePlay);
+    audioPlayer.prevBtn.addEventListener('click', playPrevious);
+    audioPlayer.nextBtn.addEventListener('click', playNext);
+    
+    if (audioPlayer.volumeRange) {
+      audioPlayer.volumeRange.addEventListener('input', updateVolume);
+    }
+
+    // Progress bar click to seek
+    const progressContainer = document.querySelector('.progress-bar');
+    if (progressContainer) {
+      progressContainer.addEventListener('click', seekAudio);
+    }
+
+    // Playlist item clicks
+    audioPlayer.playlist.forEach((item, index) => {
+      item.addEventListener('click', () => playTrack(index));
+    });
+
+    // Audio player functions
+    function playTrack(trackIndex) {
       const track = audioPlayer.playlist[trackIndex];
       if (!track) return;
-      
-      // Update active track in playlist
+
+      const audioSrc = track.dataset.src;
+      if (!audioSrc) return;
+
       audioPlayer.playlist.forEach(item => item.classList.remove('active'));
       track.classList.add('active');
       
-      // Update current track info
       audioPlayer.currentTrack = trackIndex;
-      audioPlayer.trackTitle.textContent = track.querySelector('.playlist-title').textContent;
-      audioPlayer.trackArtist.textContent = 'JS Multimédias';
+      audioPlayer.audio.src = audioSrc;
       
-      // Load audio source
-      const audioSrc = track.getAttribute('data-src');
-      if (audioSrc) {
-        audioPlayer.audio.src = audioSrc;
-        audioPlayer.audio.load();
-      }
-    }
-
-    // Play a specific track
-    function playTrack(trackIndex) {
       if (trackIndex === audioPlayer.currentTrack && audioPlayer.isPlaying) {
         togglePlay();
-        return;
       }
-      
-      loadTrack(trackIndex);
-      playAudio();
     }
 
-    // Toggle play/pause
     function togglePlay() {
       if (audioPlayer.isPlaying) {
         pauseAudio();
@@ -3472,28 +3406,26 @@
       }
     }
 
-    // Play audio
     function playAudio() {
-      audioPlayer.audio.play()
-        .then(() => {
-          audioPlayer.isPlaying = true;
-          audioPlayer.playBtn.innerHTML = '<i class="fas fa-pause"></i>';
-        })
-        .catch(error => {
-          console.error('Error playing audio:', error);
-          // Show user-friendly error message
-          alert('Impossible de lire l\'audio. Vérifiez votre connexion internet ou réessayez plus tard.');
-        });
+      if (!audioPlayer.audio.src) {
+        playTrack(0);
+      }
+      
+      audioPlayer.audio.play().then(() => {
+        audioPlayer.isPlaying = true;
+        audioPlayer.playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        updateProgress();
+      }).catch(error => {
+        console.error('Error playing audio:', error);
+      });
     }
 
-    // Pause audio
     function pauseAudio() {
       audioPlayer.audio.pause();
       audioPlayer.isPlaying = false;
       audioPlayer.playBtn.innerHTML = '<i class="fas fa-play"></i>';
     }
 
-    // Play previous track
     function playPrevious() {
       let newTrack = audioPlayer.currentTrack - 1;
       if (newTrack < 0) {
@@ -3502,7 +3434,6 @@
       playTrack(newTrack);
     }
 
-    // Play next track
     function playNext() {
       let newTrack = audioPlayer.currentTrack + 1;
       if (newTrack >= audioPlayer.playlist.length) {
@@ -3511,44 +3442,39 @@
       playTrack(newTrack);
     }
 
-    // Update volume
     function updateVolume() {
       const volume = audioPlayer.volumeRange.value / 100;
       audioPlayer.audio.volume = volume;
       
-      // Update volume icon based on level
-      const volumeIcon = audioPlayer.volumeBtn.querySelector('i');
-      if (volume === 0) {
-        volumeIcon.className = 'fas fa-volume-mute';
-      } else if (volume < 0.5) {
-        volumeIcon.className = 'fas fa-volume-down';
-      } else {
-        volumeIcon.className = 'fas fa-volume-up';
+      const volumeIcon = document.querySelector('.volume-btn i');
+      if (volumeIcon) {
+        if (volume === 0) {
+          volumeIcon.className = 'fas fa-volume-mute';
+        } else if (volume < 0.5) {
+          volumeIcon.className = 'fas fa-volume-down';
+        } else {
+          volumeIcon.className = 'fas fa-volume-up';
+        }
       }
     }
 
-    // Update progress bar
     function updateProgress() {
       const { currentTime, duration } = audioPlayer.audio;
       const progressPercent = (currentTime / duration) * 100;
       
-      audioPlayer.progressBar.style.width = `${progressPercent}%`;
-      audioPlayer.currentTimeEl.textContent = formatTime(currentTime);
-    }
-
-    // Update duration display
-    function updateDuration() {
-      audioPlayer.durationEl.textContent = formatTime(audioPlayer.audio.duration);
+      if (audioPlayer.progressBar) {
+        audioPlayer.progressBar.style.width = `${progressPercent}%`;
+      }
       
-      // Update playlist duration
-      const currentPlaylistItem = audioPlayer.playlist[audioPlayer.currentTrack];
-      if (currentPlaylistItem) {
-        currentPlaylistItem.querySelector('.playlist-duration').textContent =
-          formatTime(audioPlayer.audio.duration);
+      if (audioPlayer.currentTimeEl) {
+        audioPlayer.currentTimeEl.textContent = formatTime(currentTime);
+      }
+      
+      if (audioPlayer.durationEl && !isNaN(duration)) {
+        audioPlayer.durationEl.textContent = formatTime(duration);
       }
     }
 
-    // Seek audio on progress bar click
     function seekAudio(e) {
       const progressBar = e.currentTarget;
       const clickPosition = e.offsetX;
@@ -3558,310 +3484,22 @@
       audioPlayer.audio.currentTime = seekTime;
     }
 
-    // Format time (seconds to MM:SS)
     function formatTime(seconds) {
       if (isNaN(seconds)) return '0:00';
-      
       const minutes = Math.floor(seconds / 60);
       const remainingSeconds = Math.floor(seconds % 60);
       return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
     }
 
-  });
-
-  // Play previous track
-  function playPrevious() {
-    let newTrack = audioPlayer.currentTrack - 1;
-    if (newTrack < 0) {
-      newTrack = audioPlayer.playlist.length - 1;
-    }
-    playTrack(newTrack);
-  }
-
-  // Play next track
-  function playNext() {
-    let newTrack = audioPlayer.currentTrack + 1;
-    if (newTrack >= audioPlayer.playlist.length) {
-      newTrack = 0;
-    }
-    playTrack(newTrack);
-  }
-
-  // Update volume
-  function updateVolume() {
-    const volume = audioPlayer.volumeRange.value / 100;
-    audioPlayer.audio.volume = volume;
+    // Update progress on timeupdate
+    audioPlayer.audio.addEventListener('timeupdate', updateProgress);
     
-    // Update volume icon based on level
-    const volumeIcon = audioPlayer.volumeBtn.querySelector('i');
-    if (volume === 0) {
-      volumeIcon.className = 'fas fa-volume-mute';
-    } else if (volume < 0.5) {
-      volumeIcon.className = 'fas fa-volume-down';
-    } else {
-      volumeIcon.className = 'fas fa-volume-up';
-    }
+    // Auto-play next track when current ends
+    audioPlayer.audio.addEventListener('ended', playNext);
   }
 
-  // Update progress bar
-  function updateProgress() {
-    const { currentTime, duration } = audioPlayer.audio;
-    const progressPercent = (currentTime / duration) * 100;
-    
-    audioPlayer.progressBar.style.width = `${progressPercent}%`;
-    audioPlayer.currentTimeEl.textContent = formatTime(currentTime);
-  }
-
-  // Update duration display
-  function updateDuration() {
-    audioPlayer.durationEl.textContent = formatTime(audioPlayer.audio.duration);
-    
-    // Update playlist duration
-    const currentPlaylistItem = audioPlayer.playlist[audioPlayer.currentTrack];
-    if (currentPlaylistItem) {
-      currentPlaylistItem.querySelector('.playlist-duration').textContent =
-        formatTime(audioPlayer.audio.duration);
-    }
-  }
-
-  // Seek audio on progress bar click
-  function seekAudio(e) {
-    const progressBar = e.currentTarget;
-    const clickPosition = e.offsetX;
-    const progressBarWidth = progressBar.offsetWidth;
-    const seekTime = (clickPosition / progressBarWidth) * audioPlayer.audio.duration;
-    
-    audioPlayer.audio.currentTime = seekTime;
-  }
-
-  // Format time (seconds to MM:SS)
-  function formatTime(seconds) {
-    if (isNaN(seconds)) return '0:00';
-    
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = Math.floor(seconds % 60);
-    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
-  }
-
-  // Initialize the audio player
+  // Initialize systems
+  initImageLoading();
   initAudioPlayer();
 });
-
-// Testimonial Carousel Functionality - Fixed Infinite Loop
-document.addEventListener('DOMContentLoaded', function() {
-  const carouselTrack = document.querySelector('.testimonial-carousel-track');
-  const cards = document.querySelectorAll('.testimonial-card');
-  const prevBtn = document.querySelector('.carousel-btn.prev');
-  const nextBtn = document.querySelector('.carousel-btn.next');
-  const indicators = document.querySelectorAll('.carousel-indicator');
-  
-  if (!carouselTrack || !cards.length) return;
-
-  let currentIndex = 0;
-  const totalCards = cards.length;
-  let cardWidth = 0;
-
-  // Initialize carousel
-  function initCarousel() {
-    calculateCardWidth();
-    updateCarousel();
-    updateIndicators();
-    startAutoPlay();
-    addCardAnimations();
-  }
-
-  // Calculate card width dynamically
-  function calculateCardWidth() {
-    if (cards[0]) {
-      cardWidth = cards[0].offsetWidth + 30; // card width + gap
-    }
-  }
-
-  // Update carousel position
-  function updateCarousel() {
-    const offset = -currentIndex * cardWidth;
-    carouselTrack.style.transform = `translateX(${offset}px)`;
-    updateIndicators();
-    updateCardStates();
-  }
-
-  // Update active indicator
-  function updateIndicators() {
-    indicators.forEach((indicator, index) => {
-      indicator.classList.toggle('active', index === currentIndex);
-    });
-  }
-
-  // Update card states (active/inactive)
-  function updateCardStates() {
-    cards.forEach((card, index) => {
-      const isActive = index === currentIndex;
-      card.classList.toggle('active', isActive);
-      card.classList.toggle('inactive', !isActive);
-      
-      // Add parallax effect for non-active cards
-      if (!isActive) {
-        const distance = Math.abs(index - currentIndex);
-        const opacity = Math.max(0.3, 1 - distance * 0.2);
-        const scale = Math.max(0.9, 1 - distance * 0.05);
-        card.style.opacity = opacity;
-        card.style.transform = `scale(${scale})`;
-      } else {
-        card.style.opacity = '1';
-        card.style.transform = 'scale(1)';
-      }
-    });
-  }
-
-  // Add entrance animations to cards
-  function addCardAnimations() {
-    cards.forEach((card, index) => {
-      card.style.animationDelay = `${index * 0.1}s`;
-      card.classList.add('animate-in');
-    });
-  }
-
-  // Go to specific slide
-  function goToSlide(index) {
-    currentIndex = index;
-    updateCarousel();
-  }
-
-  // Next slide with proper infinite loop
-  function nextSlide() {
-    currentIndex = (currentIndex + 1) % totalCards;
-    updateCarousel();
-  }
-
-  // Previous slide with proper infinite loop
-  function prevSlide() {
-    currentIndex = (currentIndex - 1 + totalCards) % totalCards;
-    updateCarousel();
-  }
-
-  // Auto-play functionality
-  let autoPlayInterval;
-  function startAutoPlay() {
-    autoPlayInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
-  }
-
-  function stopAutoPlay() {
-    clearInterval(autoPlayInterval);
-  }
-
-  // Enhanced button click effects
-  function addButtonEffects(button) {
-    button.addEventListener('click', function(event) {
-      // Add ripple effect
-      const ripple = document.createElement('span');
-      const rect = button.getBoundingClientRect();
-      const size = Math.max(rect.width, rect.height);
-      const x = event.clientX - rect.left - size / 2;
-      const y = event.clientY - rect.top - size / 2;
-      
-      ripple.style.cssText = `
-        position: absolute;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.6);
-        transform: scale(0);
-        animation: ripple 0.6s linear;
-        width: ${size}px;
-        height: ${size}px;
-        left: ${x}px;
-        top: ${y}px;
-      `;
-      
-      button.appendChild(ripple);
-      setTimeout(() => ripple.remove(), 600);
-      
-      stopAutoPlay();
-      if (button.classList.contains('next')) {
-        nextSlide();
-      } else {
-        prevSlide();
-      }
-      startAutoPlay();
-    });
-  }
-
-  // Event listeners
-  if (nextBtn) addButtonEffects(nextBtn);
-  if (prevBtn) addButtonEffects(prevBtn);
-
-  // Indicator clicks with enhanced feedback
-  indicators.forEach((indicator, index) => {
-    indicator.addEventListener('click', function() {
-      // Add click animation
-      this.style.animation = 'pulse 0.3s ease';
-      setTimeout(() => this.style.animation = '', 300);
-      
-      stopAutoPlay();
-      goToSlide(index);
-      startAutoPlay();
-    });
-  });
-
-  // Pause auto-play on hover
-  carouselTrack.addEventListener('mouseenter', stopAutoPlay);
-  carouselTrack.addEventListener('mouseleave', startAutoPlay);
-
-  // Enhanced touch/swipe support for mobile
-  let startX = 0;
-  let currentX = 0;
-  let isDragging = false;
-
-  carouselTrack.addEventListener('touchstart', (e) => {
-    startX = e.touches[0].clientX;
-    isDragging = true;
-    stopAutoPlay();
-    carouselTrack.style.transition = 'none'; // Disable transition during drag
-  });
-
-  carouselTrack.addEventListener('touchmove', (e) => {
-    if (!isDragging) return;
-    currentX = e.touches[0].clientX;
-    const diff = startX - currentX;
-    carouselTrack.style.transform = `translateX(${-currentIndex * cardWidth - diff}px)`;
-  });
-
-  carouselTrack.addEventListener('touchend', () => {
-    if (!isDragging) return;
-    isDragging = false;
-    carouselTrack.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-    
-    const diff = startX - currentX;
-    const threshold = cardWidth / 4;
-    
-    if (diff > threshold) {
-      nextSlide();
-    } else if (diff < -threshold) {
-      prevSlide();
-    } else {
-      updateCarousel(); // Return to current position
-    }
-    
-    startAutoPlay();
-  });
-
-  // Keyboard navigation
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft') {
-      stopAutoPlay();
-      prevSlide();
-      startAutoPlay();
-    } else if (e.key === 'ArrowRight') {
-      stopAutoPlay();
-      nextSlide();
-      startAutoPlay();
-    }
-  });
-
-  // Initialize on load
-  initCarousel();
-
-  // Handle window resize
-  window.addEventListener('resize', () => {
-    calculateCardWidth();
-    updateCarousel();
-  });
-});
+</script>
