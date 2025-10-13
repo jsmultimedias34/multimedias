@@ -18,42 +18,99 @@ This document details the comprehensive bug fixes implemented to resolve three m
 
 ### **Solution Implemented**
 ```javascript
-// Unified Audio Player System (index.html:3337-3499)
+// Enhanced Audio Player System (index.html:3373-3587)
 function initAudioPlayer() {
   console.log('🎵 Initializing audio player...');
   
   // Single source of truth for audio player state
   const audioPlayer = {
-    audio: document.getElementById('audioPlayer'),
-    playBtn: document.getElementById('playBtn'),
-    prevBtn: document.getElementById('prevBtn'),
-    nextBtn: document.getElementById('nextBtn'),
-    volumeRange: document.getElementById('volumeRange'),
-    progressBar: document.querySelector('.progress-bar'),
-    progressContainer: document.querySelector('.progress-container'),
-    currentTimeEl: document.querySelector('.current-time'),
-    durationEl: document.querySelector('.duration'),
-    playlist: document.querySelectorAll('.playlist-item'),
+    audio: new Audio(),
+    currentTrack: 0,
     isPlaying: false,
-    currentTrack: 0
+    repeatMode: 'none', // 'none', 'all', 'one'
+    playlist: document.querySelectorAll('.playlist-item'),
+    playBtn: document.querySelector('.play-btn'),
+    prevBtn: document.querySelector('.prev-btn'),
+    nextBtn: document.querySelector('.next-btn'),
+    repeatBtn: document.querySelector('.repeat-btn'),
+    volumeRange: document.querySelector('.volume-range'),
+    progressBar: document.querySelector('.progress'),
+    currentTimeEl: document.querySelector('.current-time'),
+    durationEl: document.querySelector('.duration')
   };
   
   // Consolidated event listeners
   audioPlayer.playBtn.addEventListener('click', togglePlay);
   audioPlayer.prevBtn.addEventListener('click', playPrevious);
   audioPlayer.nextBtn.addEventListener('click', playNext);
+  audioPlayer.repeatBtn.addEventListener('click', toggleRepeat);
   
-  // Unified control functions
-  function playTrack(trackIndex) { /* ... */ }
-  function togglePlay() { /* ... */ }
-  function updateProgress() { /* ... */ }
+  // Enhanced playlist interactions
+  audioPlayer.playlist.forEach((item, index) => {
+    item.addEventListener('click', () => {
+      playTrack(index);
+      // Auto-play the selected track
+      if (!audioPlayer.isPlaying) {
+        setTimeout(() => playAudio(), 100);
+      }
+    });
+  });
+  
+  // Enhanced control functions
+  function playTrack(trackIndex) {
+    const track = audioPlayer.playlist[trackIndex];
+    if (!track) return;
+
+    const audioSrc = track.dataset.src;
+    if (!audioSrc) return;
+
+    audioPlayer.playlist.forEach(item => item.classList.remove('active'));
+    track.classList.add('active');
+    
+    audioPlayer.currentTrack = trackIndex;
+    audioPlayer.audio.src = audioSrc;
+    
+    // Auto-play when switching tracks if player was playing
+    if (audioPlayer.isPlaying) {
+      audioPlayer.audio.play().then(() => {
+        updateProgress();
+      }).catch(error => {
+        console.error('Error playing audio:', error);
+      });
+    }
+  }
+
+  function toggleRepeat() {
+    const modes = ['none', 'all', 'one'];
+    const currentIndex = modes.indexOf(audioPlayer.repeatMode);
+    audioPlayer.repeatMode = modes[(currentIndex + 1) % modes.length];
+    
+    // Update repeat button icon and tooltip
+    if (audioPlayer.repeatBtn) {
+      const icons = {
+        'none': 'fas fa-repeat',
+        'all': 'fas fa-repeat active',
+        'one': 'fas fa-redo active'
+      };
+      audioPlayer.repeatBtn.innerHTML = `<i class="${icons[audioPlayer.repeatMode]}"></i>`;
+      
+      const tooltips = {
+        'none': 'Repeat Off',
+        'all': 'Repeat All',
+        'one': 'Repeat One'
+      };
+      audioPlayer.repeatBtn.title = tooltips[audioPlayer.repeatMode];
+    }
+  }
 }
 ```
 
 ### **Key Improvements**
 - ✅ **Single initialization point** - No duplicate systems
-- ✅ **Consolidated event listeners** - No conflicting handlers  
+- ✅ **Consolidated event listeners** - No conflicting handlers
 - ✅ **Unified state management** - Single source of truth
+- ✅ **Enhanced repeat functionality** - Three modes: none, all, one
+- ✅ **Smart track ending** - Proper handling based on repeat mode
 - ✅ **Proper cleanup** - No memory leaks
 
 ---

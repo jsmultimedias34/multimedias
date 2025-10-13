@@ -3015,6 +3015,9 @@
             <button class="control-btn next-btn" title="Suivant">
               <i class="fas fa-step-forward"></i>
             </button>
+            <button class="control-btn repeat-btn" title="Repeat Off">
+              <i class="fas fa-repeat"></i>
+            </button>
             <div class="volume-control">
               <button class="control-btn volume-btn" title="Volume">
                 <i class="fas fa-volume-up"></i>
@@ -3377,10 +3380,12 @@ document.addEventListener('DOMContentLoaded', function() {
       audio: new Audio(),
       currentTrack: 0,
       isPlaying: false,
+      repeatMode: 'none', // 'none', 'all', 'one'
       playlist: document.querySelectorAll('.playlist-item'),
       playBtn: document.querySelector('.play-btn'),
       prevBtn: document.querySelector('.prev-btn'),
       nextBtn: document.querySelector('.next-btn'),
+      repeatBtn: document.querySelector('.repeat-btn'),
       volumeRange: document.querySelector('.volume-range'),
       progressBar: document.querySelector('.progress'),
       currentTimeEl: document.querySelector('.current-time'),
@@ -3400,6 +3405,10 @@ document.addEventListener('DOMContentLoaded', function() {
     audioPlayer.prevBtn.addEventListener('click', playPrevious);
     audioPlayer.nextBtn.addEventListener('click', playNext);
     
+    if (audioPlayer.repeatBtn) {
+      audioPlayer.repeatBtn.addEventListener('click', toggleRepeat);
+    }
+    
     if (audioPlayer.volumeRange) {
       audioPlayer.volumeRange.addEventListener('input', updateVolume);
     }
@@ -3410,9 +3419,15 @@ document.addEventListener('DOMContentLoaded', function() {
       progressContainer.addEventListener('click', seekAudio);
     }
 
-    // Playlist item clicks
+    // Playlist item clicks - auto-play when clicked
     audioPlayer.playlist.forEach((item, index) => {
-      item.addEventListener('click', () => playTrack(index));
+      item.addEventListener('click', () => {
+        playTrack(index);
+        // Auto-play the selected track
+        if (!audioPlayer.isPlaying) {
+          setTimeout(() => playAudio(), 100);
+        }
+      });
     });
 
     // Audio player functions
@@ -3429,8 +3444,13 @@ document.addEventListener('DOMContentLoaded', function() {
       audioPlayer.currentTrack = trackIndex;
       audioPlayer.audio.src = audioSrc;
       
-      if (trackIndex === audioPlayer.currentTrack && audioPlayer.isPlaying) {
-        togglePlay();
+      // Auto-play when switching tracks if player was playing
+      if (audioPlayer.isPlaying) {
+        audioPlayer.audio.play().then(() => {
+          updateProgress();
+        }).catch(error => {
+          console.error('Error playing audio:', error);
+        });
       }
     }
 
@@ -3443,6 +3463,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function playAudio() {
+      // If no track is loaded, load and play the first track
       if (!audioPlayer.audio.src) {
         playTrack(0);
       }
@@ -3472,10 +3493,44 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function playNext() {
       let newTrack = audioPlayer.currentTrack + 1;
+      
+      // Handle repeat modes
       if (newTrack >= audioPlayer.playlist.length) {
-        newTrack = 0;
+        if (audioPlayer.repeatMode === 'all') {
+          newTrack = 0; // Loop back to start
+        } else {
+          newTrack = 0;
+          pauseAudio(); // Stop at end if not repeating
+          return;
+        }
       }
       playTrack(newTrack);
+    }
+
+    function toggleRepeat() {
+      const modes = ['none', 'all', 'one'];
+      const currentIndex = modes.indexOf(audioPlayer.repeatMode);
+      audioPlayer.repeatMode = modes[(currentIndex + 1) % modes.length];
+      
+      // Update repeat button icon
+      if (audioPlayer.repeatBtn) {
+        const icons = {
+          'none': 'fas fa-repeat',
+          'all': 'fas fa-repeat active',
+          'one': 'fas fa-redo active'
+        };
+        audioPlayer.repeatBtn.innerHTML = `<i class="${icons[audioPlayer.repeatMode]}"></i>`;
+        
+        // Add tooltip
+        const tooltips = {
+          'none': 'Repeat Off',
+          'all': 'Repeat All',
+          'one': 'Repeat One'
+        };
+        audioPlayer.repeatBtn.title = tooltips[audioPlayer.repeatMode];
+      }
+      
+      console.log(`🔁 Repeat mode: ${audioPlayer.repeatMode}`);
     }
 
     function updateVolume() {
@@ -3530,8 +3585,28 @@ document.addEventListener('DOMContentLoaded', function() {
     // Update progress on timeupdate
     audioPlayer.audio.addEventListener('timeupdate', updateProgress);
     
-    // Auto-play next track when current ends
-    audioPlayer.audio.addEventListener('ended', playNext);
+    // Handle track ending with repeat modes
+    audioPlayer.audio.addEventListener('ended', () => {
+      if (audioPlayer.repeatMode === 'one') {
+        // Repeat current track
+        audioPlayer.audio.currentTime = 0;
+        audioPlayer.audio.play();
+      } else if (audioPlayer.repeatMode === 'all') {
+        // Move to next track (will loop back to start)
+        playNext();
+      } else {
+        // 'none' mode - move to next but stop if at end
+        const nextTrack = audioPlayer.currentTrack + 1;
+        if (nextTrack < audioPlayer.playlist.length) {
+          playNext();
+        } else {
+          // End of playlist, stop playing
+          pauseAudio();
+          audioPlayer.currentTrack = 0; // Reset to first track
+          playTrack(0); // Load first track but don't play
+        }
+      }
+    });
   }
 
   // Testimonial Carousel System
