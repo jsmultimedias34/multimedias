@@ -1324,6 +1324,118 @@
       line-height: 1.6;
     }
     
+    /* Nouveau carousel clients professionnels */
+    .clients-carousel-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+      padding: 40px 0;
+    }
+    
+    .clients-carousel-track {
+      display: flex;
+      gap: 40px;
+      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      padding: 20px 0;
+    }
+    
+    .client-carousel-item {
+      flex: 0 0 200px;
+      background: var(--glass);
+      border-radius: 15px;
+      padding: 25px;
+      text-align: center;
+      transition: var(--transition);
+      border: 1px solid var(--glass-light);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 150px;
+      cursor: pointer;
+    }
+    
+    .client-carousel-item:hover {
+      transform: translateY(-5px);
+      background: var(--glass-light);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    }
+    
+    .client-carousel-item img {
+      max-width: 100%;
+      max-height: 80px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      transition: var(--transition);
+      filter: grayscale(30%) brightness(120%);
+      opacity: 1;
+    }
+    
+    .client-carousel-item:hover img {
+      filter: grayscale(0%) brightness(100%);
+      transform: scale(1.1);
+    }
+    
+    .client-carousel-item .client-name {
+      margin-top: 15px;
+      font-weight: 600;
+      color: var(--accent);
+      font-size: 1rem;
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Navigation Controls for Clients Carousel */
+    .clients-carousel-container .carousel-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 30px;
+    }
+    
+    .clients-carousel-container .carousel-btn {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: var(--glass);
+      border: 1px solid var(--glass-light);
+      color: var(--light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+      backdrop-filter: blur(10px);
+    }
+    
+    .clients-carousel-container .carousel-btn:hover {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      transform: scale(1.1);
+      box-shadow: 0 5px 15px rgba(108, 99, 255, 0.3);
+    }
+    
+    .clients-carousel-container .carousel-indicators {
+      display: flex;
+      gap: 8px;
+    }
+    
+    .clients-carousel-container .carousel-indicator {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--glass-light);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .clients-carousel-container .carousel-indicator.active {
+      background: var(--primary);
+      transform: scale(1.2);
+    }
+    
     /* Nouvelle grille clients avec images plus grandes */
     .clients-grid {
       display: grid;
@@ -3177,21 +3289,47 @@
 
 <section class="professionnels" id="professionnels">
   <h2>Mes Clients Professionnels</h2>
-  <div class="clients-grid">
-    <div class="client-item">
-      <img src="images/balcon.png" alt="Balcon" loading="lazy" width="180" height="80">
+  <p class="professionnels-subtitle">Découvrez les entreprises qui me font confiance</p>
+  
+  <div class="clients-carousel-container">
+    <div class="clients-carousel-track" id="clientsCarouselTrack">
+      <div class="client-carousel-item">
+        <img src="images/balcon.png" alt="Balcon" width="180" height="80">
+        <div class="client-name">Balcon</div>
+      </div>
+      <div class="client-carousel-item">
+        <img src="images/bge.png" alt="BGE" width="180" height="80">
+        <div class="client-name">BGE</div>
+      </div>
+      <div class="client-carousel-item">
+        <img src="images/e2c.png" alt="E2C" width="180" height="80">
+        <div class="client-name">E2C</div>
+      </div>
+      <div class="client-carousel-item">
+        <img src="images/crfp.png" alt="CRFP" width="180" height="80">
+        <div class="client-name">CRFP</div>
+      </div>
+      <div class="client-carousel-item">
+        <img src="images/coteboheme.png" alt="Côté Bohème" width="180" height="80">
+        <div class="client-name">Côté Bohème</div>
+      </div>
     </div>
-    <div class="client-item">
-      <img src="images/bge.png" alt="BGE" loading="lazy" width="180" height="80">
-    </div>
-    <div class="client-item">
-      <img src="images/e2c.png" alt="E2C" loading="lazy" width="180" height="80">
-    </div>
-    <div class="client-item">
-      <img src="images/crfp.png" alt="CRFP" loading="lazy" width="180" height="80">
-    </div>
-    <div class="client-item">
-      <img src="images/coteboheme.png" alt="Côté Bohème" loading="lazy" width="180" height="80">
+    
+    <!-- Navigation Controls -->
+    <div class="carousel-controls">
+      <button class="carousel-btn prev" aria-label="Précédent">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <div class="carousel-indicators">
+        <div class="carousel-indicator active"></div>
+        <div class="carousel-indicator"></div>
+        <div class="carousel-indicator"></div>
+        <div class="carousel-indicator"></div>
+        <div class="carousel-indicator"></div>
+      </div>
+      <button class="carousel-btn next" aria-label="Suivant">
+        <i class="fas fa-chevron-right"></i>
+      </button>
     </div>
   </div>
 </section>
@@ -4141,10 +4279,153 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('✅ Cleaning demo video controls initialized');
   }
 
+  // Client Images Carousel System
+  function initClientCarousel() {
+    console.log('🏢 Initializing client images carousel...');
+    
+    const track = document.getElementById('clientsCarouselTrack');
+    const items = document.querySelectorAll('.client-carousel-item');
+    const prevBtn = document.querySelector('.professionnels .carousel-btn.prev');
+    const nextBtn = document.querySelector('.professionnels .carousel-btn.next');
+    const indicators = document.querySelectorAll('.professionnels .carousel-indicator');
+    
+    if (!track || items.length === 0) {
+      console.log('❌ Client carousel elements not found');
+      return;
+    }
+
+    let currentIndex = 0;
+    let isAnimating = false;
+    const itemWidth = items[0].offsetWidth + 40; // item width + gap
+    const visibleItems = Math.min(3, items.length); // Show 3 items or less if fewer items
+    let autoAdvance;
+
+    // Set initial position
+    updateCarousel();
+
+    // Event listeners with smooth transitions
+    prevBtn?.addEventListener('click', () => {
+      if (!isAnimating) {
+        currentIndex = Math.max(0, currentIndex - 1);
+        updateCarousel();
+        resetAutoAdvance();
+      }
+    });
+
+    nextBtn?.addEventListener('click', () => {
+      if (!isAnimating) {
+        currentIndex = Math.min(items.length - visibleItems, currentIndex + 1);
+        updateCarousel();
+        resetAutoAdvance();
+      }
+    });
+
+    // Indicator clicks
+    indicators.forEach((indicator, index) => {
+      indicator.addEventListener('click', () => {
+        if (!isAnimating) {
+          currentIndex = index;
+          updateCarousel();
+          resetAutoAdvance();
+        }
+      });
+    });
+
+    function updateCarousel() {
+      isAnimating = true;
+      const translateX = -currentIndex * itemWidth;
+      track.style.transform = `translateX(${translateX}px)`;
+      
+      // Update indicators
+      indicators.forEach((indicator, index) => {
+        indicator.classList.toggle('active', index === currentIndex);
+      });
+      
+      // Update button states
+      if (prevBtn) {
+        prevBtn.disabled = currentIndex === 0;
+        prevBtn.style.opacity = currentIndex === 0 ? '0.5' : '1';
+      }
+      if (nextBtn) {
+        nextBtn.disabled = currentIndex >= items.length - visibleItems;
+        nextBtn.style.opacity = currentIndex >= items.length - visibleItems ? '0.5' : '1';
+      }
+
+      // Reset animation flag after transition completes
+      setTimeout(() => {
+        isAnimating = false;
+      }, 600);
+    }
+
+    // Auto-advance system
+    function startAutoAdvance() {
+      autoAdvance = setInterval(() => {
+        if (!isAnimating) {
+          if (currentIndex < items.length - visibleItems) {
+            currentIndex++;
+          } else {
+            currentIndex = 0;
+          }
+          updateCarousel();
+        }
+      }, 5000); // 5 seconds between slides
+    }
+
+    function resetAutoAdvance() {
+      clearInterval(autoAdvance);
+      startAutoAdvance();
+    }
+
+    // Start auto-advance
+    startAutoAdvance();
+
+    // Pause on hover
+    track.addEventListener('mouseenter', () => {
+      clearInterval(autoAdvance);
+    });
+
+    track.addEventListener('mouseleave', () => {
+      startAutoAdvance();
+    });
+
+    // Touch/swipe support for mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    track.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    track.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    });
+
+    function handleSwipe() {
+      const swipeThreshold = 50;
+      const swipeDistance = touchEndX - touchStartX;
+
+      if (Math.abs(swipeDistance) > swipeThreshold && !isAnimating) {
+        if (swipeDistance > 0) {
+          // Swipe right - go to previous
+          currentIndex = Math.max(0, currentIndex - 1);
+        } else {
+          // Swipe left - go to next
+          currentIndex = Math.min(items.length - visibleItems, currentIndex + 1);
+        }
+        updateCarousel();
+        resetAutoAdvance();
+      }
+    }
+
+    console.log('✅ Client images carousel initialized');
+  }
+
   // Initialize systems
   initImageLoading();
   initAudioPlayer();
   initTestimonialCarousel();
   initCleaningVideo();
+  initClientCarousel();
 });
 </script>
